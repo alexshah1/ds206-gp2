@@ -19,3 +19,12 @@ def load_query(query_dir, query_name):
         if query_name in file:
             with open(query_dir + '\\' + file, 'r') as script_file:
                 return script_file.read()
+            
+def spread(row):
+    def stringifier(r):
+        if(str(r) in ['nan', "NaT"] ):
+            return None
+        if(len(str(r)) > 2 and str(r)[-2:] == '.0'):
+            return str(r)[:-2] 
+        return str(r)
+    return [stringifier(r) if str(r) != '2.0' else 2 for r in list(row)]
