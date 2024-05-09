@@ -1,5 +1,6 @@
 import configparser
 import os
+import uuid
 
 def get_sql_config(filename, database):
     # Read the configuration file
@@ -14,17 +15,21 @@ def get_sql_config(filename, database):
     
     return _driver, _server, _database, _trusted_connection
 
+
 def load_query(query_dir, query_name):
     for file in os.listdir(query_dir):
         if query_name in file:
             with open(query_dir + '\\' + file, 'r') as script_file:
                 return script_file.read()
             
-def spread(row):
-    def stringifier(r):
-        if(str(r) in ['nan', "NaT"] ):
-            return None
-        if(len(str(r)) > 2 and str(r)[-2:] == '.0'):
-            return str(r)[:-2] 
-        return str(r)
-    return [stringifier(r) if str(r) != '2.0' else 2 for r in list(row)]
+
+def extract_tables_db(cursor, *args):
+    results = []
+    for x in cursor.execute('exec sp_tables'):
+        if x[1] not in args:
+            results.append(x[2])
+    return results
+
+
+def get_uuid():
+    return uuid.uuid4()

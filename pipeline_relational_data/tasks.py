@@ -1,9 +1,8 @@
 import config
-import os
 import pandas as pd
 import pyodbc
-import utils
-from utils import load_query, get_sql_config, spread
+from utils import load_query, get_sql_config
+import logging
 
 def connect_db_create_cursor(database_conf_name):
     # Call to read the configuration file
@@ -18,35 +17,52 @@ def connect_db_create_cursor(database_conf_name):
 
 
 def create_database(cursor):
-    create_database_script = load_query('relational_db_creation.sql')
-    print(create_database_script)
-    # Execute a SQL command to create a database
+    # Load the SQL script to create a database
+    create_database_script = load_query('../infrastructure_initiation', 'relational_db_creation.sql')
+    
+    # Execute the script
     cursor.execute(create_database_script)
     cursor.commit()
-    print("The database has been created")
+    
+    # Log the creation of the database
+    logging.info("The database has been created")
+
 
 def drop_table(cursor, table_name, db, schema):
+    # Load the SQL script to drop a table
     drop_table_script = load_query('queries','drop_table').format(db=db, schema=schema, table=table_name)
+    
+    # Execute the script
     cursor.execute(drop_table_script)
     cursor.commit()
-    print("The {schema}.{table_name} table from the database {db} has been dropped".format(db=db, schema=schema,
-                                                                                       table_name=table_name))
+    
+    # Log the drop of the table
+    logging.ifo(f"The {schema}.{table_name} table from the database {db} has been dropped.")
+    
+    
 def create_tables(cursor, db, schema):
-    create_table_script = load_query('../infrastucture_initiation','create_table').format(db=db, schema=schema)
+    # Load the SQL script to create the tables
+    create_table_script = load_query('../infrastructure_initiation','create_table').format(db=db, schema=schema)
+    
+    # Execute the script
     cursor.execute(create_table_script)
     cursor.commit()
-    print("The {schema}.{table_name} table from the database {db} has been created".format(db=db, schema=schema, table_name=table_name))
+    
+    # Log the creation of the tables
+    logging.info("The tables in the database {db} have been created.")
 
-def insert_into_table(cursor, table_name, db, schema, source_data):
+
+def insert_into_table(cursor, table_name, db, schema, raw_source_data_path):
     # Read the excel table
-    df = pd.read_excel(source_data, sheet_name = table_name)
+    df = pd.read_excel(raw_source_data_path, sheet_name=table_name, header=0)
 
-    insert_into_table_script = load_query('insert_into_{}'.format(table_name)).format(db=db, schema=schema)
+    # Load the SQL script to insert into a table
+    insert_into_table_script = load_query('queries', f'insert_into_{table_name}').format(db=db, schema=schema)
 
-    # Populate a table in sql server
-    for index, row in df.iterrows():
-        cursor.execute(insert_into_table_script, *utils.spread(row))
+    # Populate a table in SQL server
+    for _, row in df.iterrows():
+        # Execute the script
+        cursor.execute(insert_into_table_script, *row)
         cursor.commit()
 
-    print(f"{len(df)} rows have been inserted into the {db}.{schema}.{table_name} table")
-
+    logging.info(f"{len(df)} rows have been inserted into the {db}.{schema}.{table_name} table.")    
