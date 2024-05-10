@@ -1,12 +1,11 @@
 from . import tasks
-from utils import get_tables, get_uuid
-from custom_logging import setup_logger
+from utils import get_uuid
+from .config import TABLE_NAMES
 
 class RelationalDataFlow:
     def __init__(self, raw_source_data_path):
         self.raw_source_data_path = raw_source_data_path
         self.execution_uuid = get_uuid()
-        self.logger = setup_logger(self.execution_uuid, "relational", "logs")
 
 
     @staticmethod
@@ -19,28 +18,29 @@ class RelationalDataFlow:
         
         
     def create_tables(self, cursor):
-        tasks.create_tables(cursor, 'Orders_RELATIONAL_DB', 'dbo', self.logger)  
+        tasks.create_tables(cursor, 'Orders_RELATIONAL_DB', 'dbo')  
 
 
     def insert_into_table(self, cursor):
-        for tablename in get_tables("relational"):
-            tasks.insert_into_table(cursor, tablename,'Orders_RELATIONAL_DB', 'dbo', self.raw_source_data_path, self.logger)
+        for tablename in TABLE_NAMES:
+            tasks.insert_into_table(cursor, tablename,'Orders_RELATIONAL_DB', 'dbo', self.raw_source_data_path)
         
         
     def drop_tables(self, cursor):
-        for tablename in get_tables("relational"):
-            tasks.drop_table(cursor, tablename,'Orders_RELATIONAL_DB', 'dbo', self.logger)  
+        for tablename in TABLE_NAMES:
+            tasks.drop_table(cursor, tablename,'Orders_RELATIONAL_DB', 'dbo')  
 
 
     def execute(self):
         # Create a connection
         connection = RelationalDataFlow.create_connection() 
         
-        # Drop tables
-        self.drop_tables(connection)
+        # Task 7 changed, no need to drop/create tables
+        # # Drop tables
+        # self.drop_tables(connection)
         
-        # Create tables
-        self.create_tables(connection)
+        # # Create tables
+        # self.create_tables(connection)
         
         # Insert data into tables
         self.insert_into_table(connection)

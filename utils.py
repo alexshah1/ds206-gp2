@@ -21,21 +21,6 @@ def load_query(query_dir, query_name):
         if query_name in file:
             with open(query_dir + '\\' + file, 'r') as script_file:
                 return script_file.read()
-            
-
-def extract_tables_db(cursor, *args):
-    results = []
-    for x in cursor.execute('exec sp_tables'):
-        if x[1] not in args:
-            results.append(x[2])
-    return results
-
-
-def get_tables(pipeline_type):
-    if pipeline_type == 'relational':
-        return ["Categories", "Customers", "Employees", "OrderDetails", "Orders", "Products", "Region", "Shippers", "Suppliers", "Territories"]
-    elif pipeline_type == 'dimensional':
-        return []
 
 
 def get_uuid():
