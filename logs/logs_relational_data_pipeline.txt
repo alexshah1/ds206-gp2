@@ -1,0 +1,10 @@
+2024-05-10 23:27:59,256 - 204a63a2-5eba-4e35-8450-ba0a9bb11e87 - INFO - 4 rows have been inserted into the Orders_RELATIONAL_DB.dbo.Region table.
+2024-05-10 23:27:59,480 - 204a63a2-5eba-4e35-8450-ba0a9bb11e87 - INFO - 53 rows have been inserted into the Orders_RELATIONAL_DB.dbo.Territories table.
+2024-05-10 23:27:59,571 - 204a63a2-5eba-4e35-8450-ba0a9bb11e87 - INFO - 3 rows have been inserted into the Orders_RELATIONAL_DB.dbo.Shippers table.
+2024-05-10 23:27:59,684 - 204a63a2-5eba-4e35-8450-ba0a9bb11e87 - INFO - 8 rows have been inserted into the Orders_RELATIONAL_DB.dbo.Categories table.
+2024-05-10 23:28:00,276 - 204a63a2-5eba-4e35-8450-ba0a9bb11e87 - INFO - 91 rows have been inserted into the Orders_RELATIONAL_DB.dbo.Customers table.
+2024-05-10 23:28:00,528 - 204a63a2-5eba-4e35-8450-ba0a9bb11e87 - INFO - 29 rows have been inserted into the Orders_RELATIONAL_DB.dbo.Suppliers table.
+2024-05-10 23:28:00,667 - 204a63a2-5eba-4e35-8450-ba0a9bb11e87 - INFO - 9 rows have been inserted into the Orders_RELATIONAL_DB.dbo.Employees table.
+2024-05-10 23:28:03,088 - 204a63a2-5eba-4e35-8450-ba0a9bb11e87 - INFO - 830 rows have been inserted into the Orders_RELATIONAL_DB.dbo.Orders table.
+2024-05-10 23:28:03,578 - 204a63a2-5eba-4e35-8450-ba0a9bb11e87 - INFO - 77 rows have been inserted into the Orders_RELATIONAL_DB.dbo.Products table.
+2024-05-10 23:28:06,914 - 204a63a2-5eba-4e35-8450-ba0a9bb11e87 - INFO - 2155 rows have been inserted into the Orders_RELATIONAL_DB.dbo.OrderDetails table.

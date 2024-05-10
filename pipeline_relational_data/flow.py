@@ -18,17 +18,22 @@ class RelationalDataFlow:
         
         
     def create_tables(self, cursor):
-        tasks.create_tables(cursor, 'Orders_RELATIONAL_DB', 'dbo')  
+        tasks.create_tables(cursor, "Orders_RELATIONAL_DB", "dbo", self.execution_uuid)  
 
 
     def insert_into_table(self, cursor):
         for tablename in TABLE_NAMES:
-            tasks.insert_into_table(cursor, tablename,'Orders_RELATIONAL_DB', 'dbo', self.raw_source_data_path)
+            tasks.insert_into_table(cursor, tablename, "Orders_RELATIONAL_DB", "dbo", self.raw_source_data_path, self.execution_uuid)
         
         
     def drop_tables(self, cursor):
-        for tablename in TABLE_NAMES:
-            tasks.drop_table(cursor, tablename,'Orders_RELATIONAL_DB', 'dbo')  
+        for tablename in TABLE_NAMES[::-1]:
+            tasks.drop_table(cursor, tablename, "Orders_RELATIONAL_DB", "dbo", self.execution_uuid)  
+        
+        
+    def truncate_tables(self, cursor):
+        for tablename in TABLE_NAMES[::-1]:
+            tasks.truncate_table(cursor, tablename, "Orders_RELATIONAL_DB", "dbo", self.execution_uuid)  
 
 
     def execute(self):
