@@ -33,7 +33,7 @@ CREATE TABLE Employees (
     PostalCode NVARCHAR(20) NOT NULL,
     Country NVARCHAR(100) NOT NULL,
     HomePhone NVARCHAR(50) NOT NULL,
-    Extension NVARCHAR(10) NOT NULL,
+    Extension INT NOT NULL,
     Notes NVARCHAR(MAX) NOT NULL,
     ReportsTo INT NULL,
     PhotoPath NVARCHAR(255) NOT NULL
