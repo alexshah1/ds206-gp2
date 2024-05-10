@@ -1,2 +1,2 @@
-INSERT INTO Suppliers (SupplierID, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+INSERT INTO Suppliers (SupplierID, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);

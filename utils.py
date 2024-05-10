@@ -8,10 +8,10 @@ def get_sql_config(filename, database):
     cf.read (filename)
     
     # Read corresponding file parameters
-    _driver = cf.get(database,"DRIVER")
-    _server = cf.get(database,"Server")
-    _database = cf.get(database,"Database")
-    _trusted_connection = cf.get(database,"Trusted_Connection")
+    _driver = cf.get(database, "Driver")
+    _server = cf.get(database, "Server")
+    _database = cf.get(database, "Database")
+    _trusted_connection = cf.get(database, "Trusted_Connection")
     
     return _driver, _server, _database, _trusted_connection
 
@@ -29,6 +29,13 @@ def extract_tables_db(cursor, *args):
         if x[1] not in args:
             results.append(x[2])
     return results
+
+
+def get_tables(pipeline_type):
+    if pipeline_type == 'relational':
+        return ["Categories", "Customers", "Employees", "OrderDetails", "Orders", "Products", "Region", "Shippers", "Suppliers", "Territories"]
+    elif pipeline_type == 'dimensional':
+        return []
 
 
 def get_uuid():

@@ -1,5 +1,5 @@
 USE ORDERS_RELATIONAL_DB;
-GO
+
 
 
 CREATE TABLE Categories (
@@ -7,7 +7,6 @@ CREATE TABLE Categories (
     CategoryName NVARCHAR(255),
     Description NVARCHAR(MAX)
 );
-GO
 
 
 CREATE TABLE Customers (
@@ -23,7 +22,6 @@ CREATE TABLE Customers (
     Phone NVARCHAR(50),
     Fax NVARCHAR(50) NULL
 );
-GO
 
 CREATE TABLE Employees (
     EmployeeID INT,
@@ -44,7 +42,6 @@ CREATE TABLE Employees (
     ReportsTo INT NULL,
     PhotoPath NVARCHAR(255)
 );
-GO
 
 
 CREATE TABLE OrderDetails (
@@ -54,7 +51,6 @@ CREATE TABLE OrderDetails (
     Quantity INT,
     Discount DECIMAL(10, 2)
 );
-GO
 
 
 CREATE TABLE Orders (
@@ -74,7 +70,6 @@ CREATE TABLE Orders (
     ShipCountry VARCHAR(50),
     TerritoryID INT
 );
-GO
 
 
 CREATE TABLE Products (
@@ -89,14 +84,12 @@ CREATE TABLE Products (
     ReorderLevel INT,
     Discontinued BIT
 );
-GO
 
 
 CREATE TABLE Region (
     RegionID INT,
     RegionDescription NVARCHAR(100)
 );
-GO
 
 
 CREATE TABLE Shippers (
@@ -104,7 +97,6 @@ CREATE TABLE Shippers (
     CompanyName NVARCHAR(255),
     Phone NVARCHAR(20)
 );
-GO
 
 
 CREATE TABLE Territories (
@@ -112,10 +104,12 @@ CREATE TABLE Territories (
     TerritoryDescription NVARCHAR(255),
     RegionID INT
 );
-GO
 
 
 CREATE TABLE Suppliers (
+    SupplierID INT,
+    CompanyName NVARCHAR(100),
+    ContactName NVARCHAR(100),
     ContactTitle NVARCHAR(100),
     Address NVARCHAR(255),
     City NVARCHAR(100),
@@ -126,4 +120,3 @@ CREATE TABLE Suppliers (
     Fax NVARCHAR(20) NULL,
     HomePage NVARCHAR(255) NULL
 );
-GO
