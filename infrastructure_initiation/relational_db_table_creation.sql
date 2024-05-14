@@ -19,6 +19,7 @@ CREATE TABLE Customers (
     Phone NVARCHAR(50) NOT NULL,
     Fax NVARCHAR(50) NULL
 );
+
 CREATE TABLE Employees (
     EmployeeID INT NOT NULL,
     LastName NVARCHAR(255) NOT NULL,
