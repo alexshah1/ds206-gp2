@@ -14,8 +14,6 @@ DECLARE  @Product_SCD4 TABLE
 	[MergeAction] [varchar](10) NULL
 ) 
 
-
-
 -- Merge statement
 MERGE		dbo.DimProducts_SCD1			AS DST
 USING		dbo.Products				AS SRC

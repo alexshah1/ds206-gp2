@@ -1,6 +1,3 @@
-DECLARE @Yesterday INT = (YEAR(DATEADD(dd, - 1, GETDATE())) * 10000) + (MONTH(DATEADD(dd, - 1, GETDATE())) * 100) + DAY(DATEADD(dd, - 1, GETDATE()));
-DECLARE @Today INT = (YEAR(GETDATE()) * 10000) + (MONTH(GETDATE()) * 100) + DAY(GETDATE());
-
 DECLARE @Supplier_SCD4 TABLE
 (
 	SupplierID_NK INT,
@@ -26,7 +23,7 @@ ON			(SRC.SupplierID = DST.SupplierID_NK)
 WHEN NOT MATCHED THEN
 
 INSERT(SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom)
-VALUES(SRC.SupplierID, SRC.CompanyName, SRC.ContactName, SRC.ContactTitle, SRC.Address, SRC.City, SRC.Region, SRC.PostalCode, SRC.Country, SRC.Phone, SRC.Fax, SRC.HomePage, @Today)
+VALUES(SRC.SupplierID, SRC.CompanyName, SRC.ContactName, SRC.ContactTitle, SRC.Address, SRC.City, SRC.Region, SRC.PostalCode, SRC.Country, SRC.Phone, SRC.Fax, SRC.HomePage, GETDATE())
 
 WHEN MATCHED 
 AND		
@@ -55,7 +52,7 @@ SET
 	 ,DST.Phone = SRC.Phone
 	 ,DST.Fax = SRC.Fax
 	 ,DST.HomePage = SRC.HomePage
-	 ,DST.ValidFrom = @Today
+	 ,DST.ValidFrom = GETDATE()
 
 
 OUTPUT DELETED.SupplierID_NK, DELETED.CompanyName, DELETED.ContactName, DELETED.ContactTitle, DELETED.Address, DELETED.City, DELETED.Region, DELETED.PostalCode, DELETED.Country, DELETED.Phone, DELETED.Fax, DELETED.HomePage, DELETED.ValidFrom, $Action AS MergeAction
@@ -64,7 +61,7 @@ INTO @Supplier_SCD4 (SupplierID_NK, CompanyName, ContactName, ContactTitle, Addr
 
 UPDATE		TP4
 
-SET			TP4.ValidTo = @Today
+SET			TP4.ValidTo = GETDATE()
 
 FROM		DimSuppliers_SCD4_History TP4
 			INNER JOIN @Supplier_SCD4 TMP
@@ -75,7 +72,7 @@ WHERE		TP4.ValidTo IS NULL
 
 INSERT INTO DimSuppliers_SCD4_History (SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, ValidTo)
 
-SELECT SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, @Yesterday
+SELECT SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, GETDATE()
 FROM @Supplier_SCD4
 WHERE SupplierID_NK IS NOT NULL
 ;
