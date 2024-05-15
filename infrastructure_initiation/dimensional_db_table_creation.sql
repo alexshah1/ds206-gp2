@@ -25,26 +25,6 @@ CREATE TABLE DimCustomers_SCD2 ( -- Do we need _SCD2 in the name?
  	IsCurrent BIT NULL
 );
 
-CREATE TABLE DimEmployees (
-    EmployeeID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
-    EmployeeID_NK INT NOT NULL,
-    LastName NVARCHAR(255) NOT NULL,
-    FirstName NVARCHAR(255) NOT NULL,
-    Title NVARCHAR(255) NOT NULL,
-    TitleOfCourtesy NVARCHAR(50) NOT NULL,
-    BirthDate DATE NOT NULL,
-    HireDate DATE NOT NULL,
-    Address NVARCHAR(255) NOT NULL,
-    City NVARCHAR(255) NOT NULL,
-    Region NVARCHAR(255) NULL,
-    PostalCode NVARCHAR(20) NOT NULL,
-    Country NVARCHAR(100) NOT NULL,
-    HomePhone NVARCHAR(50) NOT NULL,
-    Extension INT NOT NULL,
-    Notes NVARCHAR(MAX) NOT NULL,
-    ReportsTo INT NULL,
-    PhotoPath NVARCHAR(255) NOT NULL
-);
 
 CREATE TABLE FactOrders (
     OrderID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
@@ -70,19 +50,7 @@ CREATE TABLE FactOrders (
     Discount DECIMAL(10, 2) NOT NULL
 );
 
-CREATE TABLE DimProducts (
-    ProductID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
-    ProductID_NK INT NOT NULL,
-    ProductName NVARCHAR(255) NOT NULL,
-    SupplierID INT NOT NULL,
-    CategoryID INT NOT NULL,
-    QuantityPerUnit NVARCHAR(100) NOT NULL,
-    UnitPrice DECIMAL(10, 2) NOT NULL,
-    UnitsInStock INT NOT NULL,
-    UnitsOnOrder INT NOT NULL,
-    ReorderLevel INT NOT NULL,
-    Discontinued BIT NOT NULL
-);
+
 
 CREATE TABLE DimRegion_SCD3 (
     RegionID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
@@ -156,4 +124,84 @@ CREATE TABLE DimSuppliers_SCD4_History
     HomePage NVARCHAR(255) NULL,
 	ValidFrom INT NULL,
 	ValidTo INT NULL
-) 
+);
+
+CREATE TABLE DimProducts_SCD1(
+ [ProductID_SK_PK] [int] IDENTITY(1,1) NOT NULL,
+ [ProductID_NK] [int] NOT NULL,
+ [ProductName] [nvarchar](255) NULL,
+ [SupplierID] [varchar](50) NULL,
+ [CategoryID] [int]NOT NULL,
+ [QuantityPerUnit] [nvarchar](100) NOT NULL,
+ [UnitPrice] [decimal](10,2) NOT NULL,
+ [UnitsInStock] [int] NOT NULL,
+ [UnitsOnOrder] [int] NOT NULL,
+ [ReorderLevel] [int] NOT NULL,
+ [Discontinued] [bit] NOT NULL,
+ [ValidFrom] [datetime] NULL
+) ;
+
+CREATE TABLE DimProducts_SCD4_History
+(
+ [HistoryID] [int] IDENTITY(1,1) NOT NULL,
+ [ProductID_NK] [int] NOT NULL,
+ [ProductName] [nvarchar](255) NOT NULL,
+ [SupplierID] [varchar](50) NOT NULL,
+ [CategoryID] [int] NOT NULL,
+ [QuantityPerUnit] [nvarchar](100) NOT NULL,
+ [UnitPrice] [decimal](10,2) NOT NULL,
+ [UnitsInStock] [int] NOT NULL,
+ [UnitsOnOrder] [int] NOT NULL,
+ [ReorderLevel] [int] NOT NULL,
+ [Discontinued] [bit] NOT NULL,
+ [ValidFrom] [datetime] NULL,
+ [ValidTo] [datetime] NULL
+);
+
+
+CREATE TABLE DimEmployees_SCD1(
+ [EmployeeID_SK_PK] [int] IDENTITY(1,1) NOT NULL,
+ [EmployeeID_NK] [int] NULL,
+ [LastName] [nvarchar](255) NULL,
+ [FirstName] [nvarchar](255) NULL,
+ [Title] [nvarchar](255) NULL,
+ [TitleOfCourtesy] [nvarchar](50) NULL,
+ [BirthDate] [datetime] NULL,
+ [HireDate] [datetime] NULL,
+ [Address] [nvarchar](50) NULL,
+ [City] [nvarchar](255) NULL,
+ [Region] [nvarchar](255) NULL,
+ [PostalCode] [nvarchar](20) NULL,
+ [Country] [nvarchar](100) NULL,
+ [HomePhone] [nvarchar](50) NULL,
+ [Extension] [int] NULL,
+ [Notes] [nvarchar](MAX) NULL,
+ [ReportsTo] [int] NULL,
+ [PhotoPath] [nvarchar](255) NULL,
+ [ValidFrom] [datetime] NULL	
+);
+
+
+CREATE TABLE DimEmployees_SCD4_History
+(
+ [history_id] [int] IDENTITY(1,1) NOT NULL,
+ [EmployeeID_NK] [int] NULL,
+ [LastName] [nvarchar](255) NULL,
+ [FirstName] [nvarchar](255) NULL,
+ [Title] [nvarchar](255) NULL,
+ [TitleOfCourtesy] [nvarchar](50) NULL,
+ [BirthDate] [datetime] NULL,
+ [HireDate] [datetime] NULL,
+ [Address] [nvarchar](50) NULL,
+ [City] [nvarchar](255) NULL,
+ [Region] [nvarchar](255) NULL,
+ [PostalCode] [nvarchar](20) NULL,
+ [Country] [nvarchar](100) NULL,
+ [HomePhone] [nvarchar](50) NULL,
+ [Extension] [int] NULL,
+ [Notes] [nvarchar](MAX) NULL,
+ [ReportsTo] [int] NULL,
+ [PhotoPath] [nvarchar](255) NULL,
+ [ValidFrom] [datetime] NULL,
+ [ValidTo] [datetime] NULL
+) ;
