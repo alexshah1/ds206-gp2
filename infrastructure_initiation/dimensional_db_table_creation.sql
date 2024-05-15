@@ -1,8 +1,8 @@
 USE ORDERS_DIMENSIONAL_DB;
 
-DROP TABLE IF EXISTS DimCategories_SCD1;
+DROP TABLE IF EXISTS {db}.{schema}.DimCategories_SCD1;
 
-CREATE TABLE DimCategories_SCD1
+CREATE TABLE {db}.{schema}.DimCategories_SCD1
 (
     CategoryID_SK_PK INT PRIMARY KEY IDENTITY(1, 1),
     CategoryID_NK INT NOT NULL,
@@ -10,10 +10,10 @@ CREATE TABLE DimCategories_SCD1
     Description NVARCHAR(MAX) NOT NULL
 );
 
-DROP TABLE IF EXISTS DimCustomers_SCD2;
+DROP TABLE IF EXISTS {db}.{schema}.DimCustomers_SCD2;
 
-CREATE TABLE DimCustomers_SCD2
-( -- Do we need _SCD2 in the name?
+CREATE TABLE {db}.{schema}.DimCustomers_SCD2
+(
     CustomerID_SK_PK INT PRIMARY KEY IDENTITY(1, 1),
     CustomerID_NK NVARCHAR(10) NOT NULL,
     CompanyName NVARCHAR(255) NOT NULL,
@@ -31,9 +31,9 @@ CREATE TABLE DimCustomers_SCD2
     IsCurrent BIT NULL
 );
 
-DROP TABLE IF EXISTS FactOrders;
+DROP TABLE IF EXISTS {db}.{schema}.FactOrders;
 
-CREATE TABLE FactOrders
+CREATE TABLE {db}.{schema}.FactOrders
 (
     OrderID_SK_PK INT PRIMARY KEY IDENTITY(1, 1),
     OrderID_NK INT NOT NULL,
@@ -58,9 +58,9 @@ CREATE TABLE FactOrders
     Discount DECIMAL(10, 2) NOT NULL
 );
 
-DROP TABLE IF EXISTS DimRegion_SCD3;
+DROP TABLE IF EXISTS {db}.{schema}.DimRegion_SCD3;
 
-CREATE TABLE DimRegion_SCD3
+CREATE TABLE {db}.{schema}.DimRegion_SCD3
 (
     RegionID_SK_PK INT PRIMARY KEY IDENTITY(1, 1),
     RegionID_NK INT NOT NULL,
@@ -71,9 +71,9 @@ CREATE TABLE DimRegion_SCD3
     RegionDescription_Prev2_ValidTo DATETIME NULL
 );
 
-DROP TABLE IF EXISTS DimShippers_SCD1;
+DROP TABLE IF EXISTS {db}.{schema}.DimShippers_SCD1;
 
-CREATE TABLE DimShippers_SCD1
+CREATE TABLE {db}.{schema}.DimShippers_SCD1
 (
     ShipperID_SK_PK INT PRIMARY KEY IDENTITY(1, 1),
     ShipperID_NK INT NOT NULL,
@@ -81,9 +81,9 @@ CREATE TABLE DimShippers_SCD1
     Phone NVARCHAR(20) NOT NULL
 );
 
-DROP TABLE IF EXISTS DimTerritories_SCD3;
+DROP TABLE IF EXISTS {db}.{schema}.DimTerritories_SCD3;
 
-CREATE TABLE DimTerritories_SCD3
+CREATE TABLE {db}.{schema}.DimTerritories_SCD3
 (
     TerritoryID_SK_PK INT PRIMARY KEY IDENTITY(1, 1),
     TerritoryID_NK NVARCHAR(10) NOT NULL,
@@ -99,9 +99,9 @@ CREATE TABLE DimTerritories_SCD3
     RegionID_NK_FK_Prev2_ValidTo DATETIME NULL
 );
 
-DROP TABLE IF EXISTS DimSuppliers_SCD1;
+DROP TABLE IF EXISTS {db}.{schema}.DimSuppliers_SCD1;
 
-CREATE TABLE DimSuppliers_SCD1
+CREATE TABLE {db}.{schema}.DimSuppliers_SCD1
 (
     SupplierID_SK_PK INT PRIMARY KEY IDENTITY(1, 1) NOT NULL,
     SupplierID_NK INT NOT NULL,
@@ -119,9 +119,9 @@ CREATE TABLE DimSuppliers_SCD1
     ValidFrom DATETIME NULL
 );
 
-DROP TABLE IF EXISTS DimSuppliers_SCD4_History;
+DROP TABLE IF EXISTS {db}.{schema}.DimSuppliers_SCD4_History;
 
-CREATE TABLE DimSuppliers_SCD4_History
+CREATE TABLE {db}.{schema}.DimSuppliers_SCD4_History
 (
     History_ID INT IDENTITY(1, 1),
     SupplierID_NK INT NOT NULL,
@@ -141,14 +141,14 @@ CREATE TABLE DimSuppliers_SCD4_History
     MergeAction VARCHAR(10) NOT NULL
 );
 
-DROP TABLE IF EXISTS DimProducts_SCD1;
+DROP TABLE IF EXISTS {db}.{schema}.DimProducts_SCD1;
 
-CREATE TABLE DimProducts_SCD1
+CREATE TABLE {db}.{schema}.DimProducts_SCD1
 (
     ProductID_SK_PK INT IDENTITY(1, 1) NOT NULL,
     ProductID_NK INT NOT NULL,
     ProductName NVARCHAR(255) NULL,
-    SupplierID varchar(50) NULL,
+    SupplierID NVARCHAR(50) NULL,
     CategoryID INT NOT NULL,
     QuantityPerUnit NVARCHAR(100) NOT NULL,
     UnitPrice DECIMAL(10, 2) NOT NULL,
@@ -159,9 +159,9 @@ CREATE TABLE DimProducts_SCD1
     ValidFrom DATETIME NULL
 );
 
-DROP TABLE IF EXISTS DimProducts_SCD4_History;
+DROP TABLE IF EXISTS {db}.{schema}.DimProducts_SCD4_History;
 
-CREATE TABLE DimProducts_SCD4_History
+CREATE TABLE {db}.{schema}.DimProducts_SCD4_History
 (
     HistoryID INT IDENTITY(1, 1) NOT NULL,
     ProductID_NK INT NOT NULL,
@@ -179,9 +179,9 @@ CREATE TABLE DimProducts_SCD4_History
     MergeAction VARCHAR(10) NOT NULL
 );
 
-DROP TABLE IF EXISTS DimEmployees_SCD1;
+DROP TABLE IF EXISTS {db}.{schema}.DimEmployees_SCD1;
 
-CREATE TABLE DimEmployees_SCD1
+CREATE TABLE {db}.{schema}.DimEmployees_SCD1
 (
     EmployeeID_SK_PK INT IDENTITY(1, 1) NOT NULL,
     EmployeeID_NK INT NULL,
@@ -204,9 +204,9 @@ CREATE TABLE DimEmployees_SCD1
     ValidFrom DATETIME NULL
 );
 
-DROP TABLE IF EXISTS DimEmployees_SCD4_History;
+DROP TABLE IF EXISTS {db}.{schema}.DimEmployees_SCD4_History;
 
-CREATE TABLE DimEmployees_SCD4_History
+CREATE TABLE {db}.{schema}.DimEmployees_SCD4_History
 (
     history_id INT IDENTITY(1, 1) NOT NULL,
     EmployeeID_NK INT NULL,

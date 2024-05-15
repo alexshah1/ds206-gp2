@@ -36,7 +36,7 @@ def create_database(cursor, execution_uuid):
     
 def create_tables(cursor, db, schema, execution_uuid):
     # Load the SQL script to create the tables
-    create_table_script = load_query("infrastructure_initiation", "dimensional_db_table_creation.sql")
+    create_table_script = load_query("infrastructure_initiation", "dimensional_db_table_creation.sql").format(db=db, schema=schema)
     
     # Execute the script
     cursor.execute(create_table_script)
