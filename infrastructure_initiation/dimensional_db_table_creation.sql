@@ -203,4 +203,4 @@ CREATE TABLE DimEmployees_SCD4_History
  [PhotoPath] [nvarchar](255) NULL,
  [ValidFrom] [datetime] NULL,
  [ValidTo] [datetime] NULL
-) ;
+) 
