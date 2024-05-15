@@ -1,5 +1,5 @@
-DECLARE @Yesterday INT =  (YEAR(DATEADD(dd,-1,GETDATE())) * 10000) + (MONTH(DATEADD(dd,-1,GETDATE())) * 100) + DAY(DATEADD(dd,-1,GETDATE()))
-DECLARE @Today INT =  (YEAR(GETDATE()) * 10000) + (MONTH(GETDATE()) * 100) + DAY(GETDATE())
+DECLARE @Yesterday INT = (YEAR(DATEADD(dd, - 1, GETDATE())) * 10000) + (MONTH(DATEADD(dd, - 1, GETDATE())) * 100) + DAY(DATEADD(dd, - 1, GETDATE()));
+DECLARE @Today INT = (YEAR(GETDATE()) * 10000) + (MONTH(GETDATE()) * 100) + DAY(GETDATE());
 
 DECLARE  @Supplier_SCD4 TABLE
 (
@@ -15,12 +15,10 @@ DECLARE  @Supplier_SCD4 TABLE
     Phone NVARCHAR(20),
     Fax NVARCHAR(20),
     HomePage NVARCHAR(255),
-	ValidFrom DATETIME,
+	ValidFrom INT,
 	MergeAction NVARCHAR(10) 
 ) 
 
-
--- Merge statement
 MERGE		DimSuppliers_SCD1					AS DST
 USING		Suppliers				AS SRC
 ON			(SRC.SupplierID = DST.SupplierID_NK)
@@ -28,7 +26,7 @@ ON			(SRC.SupplierID = DST.SupplierID_NK)
 WHEN NOT MATCHED THEN
 
 INSERT(SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom)
-VALUES(SRC.SupplierID, SRC.CompanyName, SRC.ContactName, SRC.ContactTitle, SRC.Address, SRC.City, SRC.Region, SRC.PostalCode, SRC.Country, SRC.Phone, SRC.Fax, SRC.HomePage, GETDATE())
+VALUES(SRC.SupplierID, SRC.CompanyName, SRC.ContactName, SRC.ContactTitle, SRC.Address, SRC.City, SRC.Region, SRC.PostalCode, SRC.Country, SRC.Phone, SRC.Fax, SRC.HomePage, @Today)
 
 WHEN MATCHED 
 AND		
@@ -57,17 +55,16 @@ SET
 	 ,DST.Phone = SRC.Phone
 	 ,DST.Fax = SRC.Fax
 	 ,DST.HomePage = SRC.HomePage
-	 ,DST.ValidFrom = GETDATE()
+	 ,DST.ValidFrom = @Today
 
 
 OUTPUT DELETED.SupplierID_NK, DELETED.CompanyName, DELETED.ContactName, DELETED.ContactTitle, DELETED.Address, DELETED.City, DELETED.Region, DELETED.PostalCode, DELETED.Country, DELETED.Phone, DELETED.Fax, DELETED.HomePage, DELETED.ValidFrom, $Action AS MergeAction
 INTO @Supplier_SCD4 (SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, MergeAction)
 ;
--- Update history table to set final date and current flag
 
 UPDATE		TP4
 
-SET			TP4.ValidTo = CONVERT (DATE, GETDATE())
+SET			TP4.ValidTo = @Today
 
 FROM		DimSuppliers_SCD4_History TP4
 			INNER JOIN @Supplier_SCD4 TMP
@@ -76,11 +73,9 @@ FROM		DimSuppliers_SCD4_History TP4
 WHERE		TP4.ValidTo IS NULL
 
 
--- Add latest history records to history table
-
 INSERT INTO DimSuppliers_SCD4_History (SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, ValidTo)
 
-SELECT SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, GETDATE()
+SELECT SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, @Yesterday
 FROM @Supplier_SCD4
 WHERE SupplierID_NK IS NOT NULL
 ;

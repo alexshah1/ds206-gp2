@@ -88,6 +88,10 @@ CREATE TABLE DimRegion_SCD3 (
     RegionID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
     RegionID_NK INT NOT NULL,
     RegionDescription NVARCHAR(100) NOT NULL
+    RegionDescription_Prev1 NVARCHAR(100) NULL,
+    RegionDescription_Prev1_ValidTo INT NULL,
+    RegionDescription_Prev2 NVARCHAR(100) NULL,
+    RegionDescription_Prev2_ValidTo INT NULL
 );
 
 CREATE TABLE DimShippers (
@@ -97,11 +101,19 @@ CREATE TABLE DimShippers (
     Phone NVARCHAR(20) NOT NULL
 );
 
-CREATE TABLE DimTerritories (
+CREATE TABLE DimTerritories_SCD3 (
     TerritoryID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
     TerritoryID_NK NVARCHAR(10) NOT NULL,
     TerritoryDescription NVARCHAR(255) NOT NULL,
-    RegionID INT NOT NULL
+    TerritoryDescription_Prev1 NVARCHAR(255) NULL,
+    TerritoryDescription_Prev1_ValidTo INT NULL,
+    TerritoryDescription_Prev2 NVARCHAR(100) NULL,
+    TerritoryDescription_Prev2_ValidTo NVARCHAR(255) NULL,
+    RegionID_NK_FK INT NOT NULL,
+    RegionID_NK_FK_Prev1 INT NOT NULL,
+    RegionID_NK_FK_Prev1_ValidTo INT NULL,
+    RegionID_NK_FK_Prev2 INT NOT NULL,
+    RegionID_NK_FK_Prev2_ValidTo INT NULL
 );
 
 DROP TABLE IF EXISTS DimSuppliers_SCD1;
@@ -121,7 +133,7 @@ CREATE TABLE DimSuppliers_SCD1 (
     Phone NVARCHAR(20) NOT NULL,
     Fax NVARCHAR(20) NULL,
     HomePage NVARCHAR(255) NULL,
-	ValidFrom DATETIME NULL
+	ValidFrom INT NULL
 );
 
 DROP TABLE IF EXISTS DimSuppliers_SCD4_History;
@@ -129,7 +141,7 @@ GO
 
 CREATE TABLE DimSuppliers_SCD4_History
 (
-	History_id INT IDENTITY(1,1),
+	History_ID INT IDENTITY(1,1),
 	SupplierID_NK INT NOT NULL,
     CompanyName NVARCHAR(100) NOT NULL,
     ContactName NVARCHAR(100) NOT NULL,
@@ -142,6 +154,6 @@ CREATE TABLE DimSuppliers_SCD4_History
     Phone NVARCHAR(20) NOT NULL,
     Fax NVARCHAR(20) NULL,
     HomePage NVARCHAR(255) NULL,
-	ValidFrom DATETIME NULL,
-	ValidTo DATETIME NULL
+	ValidFrom INT NULL,
+	ValidTo INT NULL
 ) 
