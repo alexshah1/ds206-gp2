@@ -1,11 +1,15 @@
 USE ORDERS_DIMENSIONAL_DB;
 
+DROP TABLE IF EXISTS DimCategories_SCD1;
+
 CREATE TABLE DimCategories_SCD1 (
     CategoryID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
     CategoryID_NK INT NOT NULL,
     CategoryName NVARCHAR(255) NOT NULL,
     Description NVARCHAR(MAX) NOT NULL
 );
+
+DROP TABLE IF EXISTS DimCustomers_SCD2;
 
 CREATE TABLE DimCustomers_SCD2 ( -- Do we need _SCD2 in the name?
     CustomerID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
@@ -24,6 +28,8 @@ CREATE TABLE DimCustomers_SCD2 ( -- Do we need _SCD2 in the name?
  	ValidTo DATETIME NULL,
  	IsCurrent BIT NULL
 );
+
+DROP TABLE IF EXISTS FactOrders;
 
 CREATE TABLE FactOrders (
     OrderID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
@@ -49,6 +55,8 @@ CREATE TABLE FactOrders (
     Discount DECIMAL(10, 2) NOT NULL
 );
 
+DROP TABLE IF EXISTS DimRegion_SCD3;
+
 CREATE TABLE DimRegion_SCD3 (
     RegionID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
     RegionID_NK INT NOT NULL,
@@ -59,12 +67,16 @@ CREATE TABLE DimRegion_SCD3 (
     RegionDescription_Prev2_ValidTo DATETIME NULL
 );
 
+DROP TABLE IF EXISTS DimShippers_SCD1;
+
 CREATE TABLE DimShippers_SCD1 (
 	ShipperID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
     ShipperID_NK INT NOT NULL,
 	CompanyName NVARCHAR(255) NOT NULL,
     Phone NVARCHAR(20) NOT NULL
 );
+
+DROP TABLE IF EXISTS DimTerritories_SCD3;
 
 CREATE TABLE DimTerritories_SCD3 (
     TerritoryID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
@@ -82,7 +94,6 @@ CREATE TABLE DimTerritories_SCD3 (
 );
 
 DROP TABLE IF EXISTS DimSuppliers_SCD1;
-GO
 
 CREATE TABLE DimSuppliers_SCD1 (
     SupplierID_SK_PK INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
@@ -102,7 +113,6 @@ CREATE TABLE DimSuppliers_SCD1 (
 );
 
 DROP TABLE IF EXISTS DimSuppliers_SCD4_History;
-GO
 
 CREATE TABLE DimSuppliers_SCD4_History
 (
@@ -123,6 +133,8 @@ CREATE TABLE DimSuppliers_SCD4_History
 	ValidTo DATETIME NULL
 );
 
+DROP TABLE IF EXISTS DimProducts_SCD1;
+
 CREATE TABLE DimProducts_SCD1(
  ProductID_SK_PK INT IDENTITY(1,1) NOT NULL,
  ProductID_NK INT NOT NULL,
@@ -137,6 +149,8 @@ CREATE TABLE DimProducts_SCD1(
  Discontinued BIT NOT NULL,
  ValidFrom DATETIME NULL
 ) ;
+
+DROP TABLE IF EXISTS DimProducts_SCD4_History;
 
 CREATE TABLE DimProducts_SCD4_History
 (
@@ -154,6 +168,8 @@ CREATE TABLE DimProducts_SCD4_History
  ValidFrom DATETIME NULL,
  ValidTo DATETIME NULL
 );
+
+DROP TABLE IF EXISTS DimEmployees_SCD1;
 
 CREATE TABLE DimEmployees_SCD1(
  EmployeeID_SK_PK INT IDENTITY(1,1) NOT NULL,
@@ -176,6 +192,8 @@ CREATE TABLE DimEmployees_SCD1(
  PhotoPath NVARCHAR(255) NULL,
  ValidFrom DATETIME NULL	
 );
+
+DROP TABLE IF EXISTS DimEmployees_SCD4_History;
 
 CREATE TABLE DimEmployees_SCD4_History
 (
