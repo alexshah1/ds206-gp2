@@ -104,8 +104,11 @@ CREATE TABLE DimTerritories (
     RegionID INT NOT NULL
 );
 
-CREATE TABLE DimSuppliers (
-    SupplierID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
+DROP TABLE IF EXISTS DimSuppliers_SCD1;
+GO
+
+CREATE TABLE DimSuppliers_SCD1 (
+    SupplierID_SK_PK INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
     SupplierID_NK INT NOT NULL,
     CompanyName NVARCHAR(100) NOT NULL,
     ContactName NVARCHAR(100) NOT NULL,
@@ -117,5 +120,28 @@ CREATE TABLE DimSuppliers (
     Country NVARCHAR(100) NOT NULL,
     Phone NVARCHAR(20) NOT NULL,
     Fax NVARCHAR(20) NULL,
-    HomePage NVARCHAR(255) NULL
+    HomePage NVARCHAR(255) NULL,
+	ValidFrom DATETIME NULL
 );
+
+DROP TABLE IF EXISTS DimSuppliers_SCD4_History;
+GO
+
+CREATE TABLE DimSuppliers_SCD4_History
+(
+	History_id INT IDENTITY(1,1),
+	SupplierID_NK INT NOT NULL,
+    CompanyName NVARCHAR(100) NOT NULL,
+    ContactName NVARCHAR(100) NOT NULL,
+    ContactTitle NVARCHAR(100) NOT NULL,
+    Address NVARCHAR(255) NOT NULL,
+    City NVARCHAR(100) NOT NULL,
+    Region NVARCHAR(100) NULL,
+    PostalCode NVARCHAR(20) NOT NULL,
+    Country NVARCHAR(100) NOT NULL,
+    Phone NVARCHAR(20) NOT NULL,
+    Fax NVARCHAR(20) NULL,
+    HomePage NVARCHAR(255) NULL,
+	ValidFrom DATETIME NULL,
+	ValidTo DATETIME NULL
+) 
