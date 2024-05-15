@@ -7,7 +7,7 @@ CREATE TABLE DimCategories (
     Description NVARCHAR(MAX) NOT NULL
 );
 
-CREATE TABLE DimCustomers (
+CREATE TABLE DimCustomers_SCD2 ( -- Do we need _SCD2 in the name?
     CustomerID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
     CustomerID_NK NVARCHAR(10) NOT NULL,
     CompanyName NVARCHAR(255) NOT NULL,
@@ -19,7 +19,10 @@ CREATE TABLE DimCustomers (
     PostalCode NVARCHAR(20) NULL,
     Country NVARCHAR(100) NOT NULL,
     Phone NVARCHAR(50) NOT NULL,
-    Fax NVARCHAR(50) NULL
+    Fax NVARCHAR(50) NULL,
+	ValidFrom INT NULL,
+ 	ValidTo INT NULL,
+ 	IsCurrent BIT NULL
 );
 
 CREATE TABLE DimEmployees (
@@ -81,7 +84,7 @@ CREATE TABLE DimProducts (
     Discontinued BIT NOT NULL
 );
 
-CREATE TABLE DimRegion (
+CREATE TABLE DimRegion_SCD3 (
     RegionID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
     RegionID_NK INT NOT NULL,
     RegionDescription NVARCHAR(100) NOT NULL
