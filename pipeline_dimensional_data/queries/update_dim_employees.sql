@@ -21,8 +21,8 @@ DECLARE  @Employees_SCD4 TABLE
 	MergeAction NVARCHAR(10) NULL
 ) 
 
-MERGE		dbo.DimEmployees_SCD1 AS DST
-USING		Employees AS SRC
+MERGE		{dst_db}.{dst_schema}.DimEmployees_SCD1 AS DST
+USING		{src_db}.{src_schema}.Employees AS SRC
 ON			(SRC.EmployeeID_NK = DST.EmployeeID_NK)
 
 WHEN NOT MATCHED THEN
@@ -73,7 +73,7 @@ OUTPUT DELETED.EmployeeID_NK, DELETED.LastName, DELETED.FirstName, DELETED.Title
 INTO @Employees_SCD4 (EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, MergeAction)
 ;
 
-    DELETE FROM dbo.DimEmployees_SCD1
+    DELETE FROM {dst_db}.{dst_schema}.DimEmployees_SCD1
     OUTPUT DELETED.EmployeeID_NK, DELETED.LastName, DELETED.FirstName, DELETED.Title, DELETED.TitleOfCourtesy, DELETED.BirthDate, DELETED.HireDate, DELETED.Address, DELETED.City, DELETED.Region, DELETED.PostalCode, DELETED.Country, DELETED.HomePhone, DELETED.Extension, DELETED.Notes, DELETED.ReportsTo, DELETED.PhotoPath, DELETED.ValidFrom, 'DELETE' AS MergeAction
     INTO @Employees_SCD4 (EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, MergeAction)
     WHERE EmployeeID_NK NOT IN (SELECT EmployeeID_NK FROM Employees);
@@ -82,13 +82,13 @@ UPDATE		TP4
 
 SET			TP4.ValidTo = GETDATE()
 
-FROM		dbo.DimEmployees_SCD4_History TP4
+FROM		{dst_db}.{dst_schema}.DimEmployees_SCD4_History TP4
 			INNER JOIN @Employees_SCD4 TMP
 			ON TP4.EmployeeID_NK = TMP.EmployeeID_NK
 
 WHERE		TP4.ValidTo IS NULL
 
-INSERT INTO dbo.DimEmployees_SCD4_History (EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, ValidTo)
+INSERT INTO {dst_db}.{dst_schema}.DimEmployees_SCD4_History (EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, ValidTo)
 SELECT EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, GETDATE()
 FROM @Employees_SCD4
 WHERE EmployeeID_NK IS NOT NULL;

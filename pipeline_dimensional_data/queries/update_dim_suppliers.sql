@@ -16,8 +16,8 @@ DECLARE @Supplier_SCD4 TABLE
 	MergeAction NVARCHAR(10) 
 ) 
 
-MERGE		DimSuppliers_SCD1 AS DST
-USING		Suppliers AS SRC
+MERGE		{dst_db}.{dst_schema}.DimSuppliers_SCD1 AS DST
+USING		{src_db}.{src_schema}.Suppliers AS SRC
 ON			(SRC.SupplierID = DST.SupplierID_NK)
 
 WHEN NOT MATCHED THEN
@@ -63,14 +63,14 @@ UPDATE		TP4
 
 SET			TP4.ValidTo = GETDATE()
 
-FROM		DimSuppliers_SCD4_History TP4
+FROM		{dst_db}.{dst_schema}.DimSuppliers_SCD4_History TP4
 			INNER JOIN @Supplier_SCD4 TMP
 			ON TP4.SupplierID_NK = TMP.SupplierID_NK
 
 WHERE		TP4.ValidTo IS NULL
 
 
-INSERT INTO DimSuppliers_SCD4_History (SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, ValidTo)
+INSERT INTO {dst_db}.{dst_schema}.DimSuppliers_SCD4_History (SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, ValidTo)
 
 SELECT SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, GETDATE()
 FROM @Supplier_SCD4

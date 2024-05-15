@@ -1,2 +1,2 @@
-INSERT INTO OrderDetails (OrderID, ProductID, UnitPrice, Quantity, Discount)
+INSERT INTO {db}.{schema}.OrderDetails (OrderID, ProductID, UnitPrice, Quantity, Discount)
 VALUES (?, ?, ?, ?, ?);

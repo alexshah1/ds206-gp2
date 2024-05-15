@@ -1,7 +1,7 @@
 BEGIN TRY
-MERGE DimShippers_SCD1 AS TARGET -- destination
-USING Shippers AS SOURCE -- source
-ON ( SOURCE.ShipperID = TARGET.ShipperID_NK)
+MERGE {dst_db}.{dst_schema}.DimShippers_SCD1 AS TARGET -- destination
+USING {src_db}.{src_schema}.Shippers AS SOURCE -- source
+ON (SOURCE.ShipperID = TARGET.ShipperID_NK)
 WHEN NOT MATCHED BY TARGET THEN 
   INSERT (ShipperID_NK,
 		  CompanyName,

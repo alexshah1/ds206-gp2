@@ -1,2 +1,2 @@
-INSERT INTO Suppliers (SupplierID, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage)
+INSERT INTO {db}.{schema}.Suppliers (SupplierID, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage)
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);

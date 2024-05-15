@@ -63,7 +63,7 @@ def truncate_table(cursor, table_name, db, schema, execution_uuid):
     
 def create_tables(cursor, db, schema, execution_uuid):
     # Load the SQL script to create the tables
-    create_table_script = load_query("infrastructure_initiation", "relational_db_table_creation.sql").format(db=db, schema=schema)
+    create_table_script = load_query("infrastructure_initiation", "relational_db_table_creation.sql")
     
     # Execute the script
     cursor.execute(create_table_script)

@@ -1,2 +1,2 @@
-INSERT INTO Territories (TerritoryID, TerritoryDescription, RegionID)
+INSERT INTO {db}.{schema}.Territories (TerritoryID, TerritoryDescription, RegionID)
 VALUES (?, ?, ?);

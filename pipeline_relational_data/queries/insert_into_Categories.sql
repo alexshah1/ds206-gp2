@@ -1,2 +1,2 @@
-INSERT INTO Categories (CategoryID, CategoryName, Description)
+INSERT INTO {db}.{schema}.Categories (CategoryID, CategoryName, Description)
 VALUES (?, ?, ?);

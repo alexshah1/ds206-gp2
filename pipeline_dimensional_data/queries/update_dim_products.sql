@@ -14,8 +14,8 @@ DECLARE  @Product_SCD4 TABLE
 	MergeAction NVARCHAR(10) NULL
 ) 
 
-MERGE		dbo.DimProducts_SCD1 AS DST
-USING		dbo.Products AS SRC
+MERGE		{dst_db}.{dst_schema}.DimProducts_SCD1 AS DST
+USING		{src_db}.{src_schema}.Products AS SRC
 ON			(SRC.ProductID_NK = DST.ProductID_NK)
 
 WHEN NOT MATCHED THEN
@@ -57,15 +57,14 @@ UPDATE		TP4
 
 SET			TP4.ValidTo = GETDATE()
 
-FROM		dbo.DimProducts_SCD4_History TP4
+FROM		{dst_db}.{dst_schema}.DimProducts_SCD4_History TP4
 			INNER JOIN @Product_SCD4 TMP
 			ON TP4.ProductID_NK = TMP.ProductID_NK
 
 WHERE		TP4.ValidTo IS NULL
 
 
-INSERT INTO dbo.DimProducts_SCD4_History (ProductID_NK, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder,ReorderLevel,Discontinued,ValidFrom, ValidTo)
-
+INSERT INTO {dst_db}.{dst_schema}.DimProducts_SCD4_History (ProductID_NK, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder,ReorderLevel,Discontinued,ValidFrom, ValidTo)
 SELECT ProductID_NK, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder,ReorderLevel,Discontinued,ValidFrom, GETDATE()
 FROM @Product_SCD4
 WHERE ProductID_NK IS NOT NULL

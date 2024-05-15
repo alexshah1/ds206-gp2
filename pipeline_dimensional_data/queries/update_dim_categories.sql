@@ -1,5 +1,5 @@
-MERGE DimCategories_SCD1 AS DST
-USING Categories AS SRC 
+MERGE {dst_db}.{dst_schema}.DimCategories_SCD1 AS DST
+USING {src_db}.{src_schema}.Categories AS SRC 
 ON (DST.ProductID_NK = SRC.ProductID) 
 
 WHEN MATCHED AND 

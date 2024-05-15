@@ -1,8 +1,8 @@
-INSERT INTO DimCustomers_SCD2 (CustomerID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, ValidFrom, IsCurrent)
+INSERT INTO {dst_db}.{dst_schema}.DimCustomers_SCD2 (CustomerID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, ValidFrom, IsCurrent)
 SELECT CustomerID, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, GETDATE(), 1
 FROM(
-	MERGE DimCustomers_SCD2 AS DST
-	USING Customers AS SRC
+	MERGE {dst_db}.{dst_schema}.DimCustomers_SCD2 AS DST
+	USING {src_db}.{src_schema}.Customers AS SRC
 	ON (SRC.CustomerID = DST.CustomerID_NK)
 	WHEN NOT MATCHED
     THEN

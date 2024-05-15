@@ -18,12 +18,12 @@ class DimensionalDataFlow:
         
         
     def create_tables(self, cursor):
-        tasks.create_tables(cursor, "Orders_RELATIONAL_DB", "dbo", self.execution_uuid)  
+        tasks.create_tables(cursor, "Orders_DIMENSIONAL_DB", "dbo", self.execution_uuid)  
 
 
     def insert_into_tables(self, cursor):
         for tablename in TABLE_NAMES:
-            tasks.insert_into_table(cursor, tablename, "Orders_RELATIONAL_DB", "dbo", self.raw_source_data_path, self.execution_uuid)
+            tasks.insert_into_table(cursor, tablename, "Orders_RELATIONAL_DB", "dbo", "Orders_DIMENSIONAL_DB", "dbo", self.raw_source_data_path, self.execution_uuid)
 
 
     def execute(self):

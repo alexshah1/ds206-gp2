@@ -1,7 +1,7 @@
-MERGE DimRegions_SCD3 AS DST
+MERGE {dst_db}.{dst_schema}.DimRegions_SCD3 AS DST
 USING 
 (SELECT *
-FROM Regions) SRC
+FROM {src_db}.{src_schema}.Regions) SRC
 ON (SRC.RegionID = DST.RegionID_NK)
 WHEN NOT MATCHED THEN
 INSERT (RegionID_NK, RegionDescription)

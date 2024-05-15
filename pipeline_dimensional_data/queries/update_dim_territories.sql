@@ -1,7 +1,7 @@
-MERGE DimTerritories_SCD3 AS DST
+MERGE {dst_db}.{dst_schema}.DimTerritories_SCD3 AS DST
 USING 
 (SELECT *
-FROM Territories) SRC
+FROM {src_db}.{src_schema}.Territories) SRC
 ON (SRC.TerritoryID = DST.TerritoryID_NK)
 WHEN NOT MATCHED THEN
 INSERT (TerritoryID_NK, TerritoryDescription, RegionID_NK_FK)

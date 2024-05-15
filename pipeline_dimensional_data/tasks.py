@@ -36,7 +36,7 @@ def create_database(cursor, execution_uuid):
     
 def create_tables(cursor, db, schema, execution_uuid):
     # Load the SQL script to create the tables
-    create_table_script = load_query("infrastructure_initiation", "relational_db_table_creation.sql").format(db=db, schema=schema)
+    create_table_script = load_query("infrastructure_initiation", "dimensional_db_table_creation.sql")
     
     # Execute the script
     cursor.execute(create_table_script)
@@ -47,14 +47,14 @@ def create_tables(cursor, db, schema, execution_uuid):
                            extra={"execution_uuid": execution_uuid})
 
 
-def insert_into_table(cursor, table_name, db, schema, execution_uuid):
+def insert_into_table(cursor, table_name, src_db, src_schema, dst_db, dst_schema, execution_uuid):
     # Load the SQL script to insert data into the tables
-    insert_into_table_script = load_query("pipeline_dimensional_data/queries", f"update_{table_name}.sql") ##.format(db=db, schema=schema, table=table_name) TODO
+    insert_into_table_script = load_query("pipeline_dimensional_data/queries", f"update_{table_name}.sql").format(src_db=src_db, src_schema=src_schema, dst_db=dst_db, dst_schema=dst_schema)
     
     # Execute the script
     cursor.execute(insert_into_table_script)
     cursor.commit()
     
     # Log the insertion of data into the tables
-    dimensional_logger.info(msg=f"Data has been inserted into/updated the {db}.{schema}.{table_name} table from the relational database.",
+    dimensional_logger.info(msg=f"Data has been inserted into/updated the {dst_db}.{dst_schema}.{table_name} table from {src_db}.{src_schema}.",
                            extra={"execution_uuid": execution_uuid})

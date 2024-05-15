@@ -1,2 +1,2 @@
-INSERT INTO Shippers (ShipperID, CompanyName, Phone)
+INSERT INTO {db}.{schema}.Shippers (ShipperID, CompanyName, Phone)
 VALUES (?, ?, ?);

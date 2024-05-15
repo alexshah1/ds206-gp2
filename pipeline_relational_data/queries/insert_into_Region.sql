@@ -1,2 +1,2 @@
-INSERT INTO Region (RegionID, RegionDescription)
+INSERT INTO {db}.{schema}.Region (RegionID, RegionDescription)
 VALUES (?, ?);
