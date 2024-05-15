@@ -1,14 +1,21 @@
 USE ORDERS_RELATIONAL_DB;
 
+DROP TABLE IF EXISTS {db}.{schema}.OrderDetails;
+DROP TABLE IF EXISTS {db}.{schema}.Products;
+DROP TABLE IF EXISTS {db}.{schema}.Orders;
+DROP TABLE IF EXISTS {db}.{schema}.Employees;
+DROP TABLE IF EXISTS {db}.{schema}.Suppliers;
+DROP TABLE IF EXISTS {db}.{schema}.Customers;
 DROP TABLE IF EXISTS {db}.{schema}.Categories;
+DROP TABLE IF EXISTS {db}.{schema}.Shippers;
+DROP TABLE IF EXISTS {db}.{schema}.Territories;
+DROP TABLE IF EXISTS {db}.{schema}.Region;
 
 CREATE TABLE {db}.{schema}.Categories (
     CategoryID INT NOT NULL,
     CategoryName NVARCHAR(255) NOT NULL,
     Description NVARCHAR(MAX) NOT NULL
 );
-
-DROP TABLE IF EXISTS {db}.{schema}.Customers;
 
 CREATE TABLE {db}.{schema}.Customers (
     CustomerID NVARCHAR(10) NOT NULL,
@@ -23,8 +30,6 @@ CREATE TABLE {db}.{schema}.Customers (
     Phone NVARCHAR(50) NOT NULL,
     Fax NVARCHAR(50) NULL
 );
-
-DROP TABLE IF EXISTS {db}.{schema}.Employees;
 
 CREATE TABLE {db}.{schema}.Employees (
     EmployeeID INT NOT NULL,
@@ -46,8 +51,6 @@ CREATE TABLE {db}.{schema}.Employees (
     PhotoPath NVARCHAR(255) NOT NULL
 );
 
-DROP TABLE IF EXISTS {db}.{schema}.OrderDetails;
-
 CREATE TABLE {db}.{schema}.OrderDetails (
     OrderID INT NOT NULL,
     ProductID INT NOT NULL,
@@ -55,8 +58,6 @@ CREATE TABLE {db}.{schema}.OrderDetails (
     Quantity INT NOT NULL,
     Discount DECIMAL(10, 2) NOT NULL
 );
-
-DROP TABLE IF EXISTS {db}.{schema}.Orders;
 
 CREATE TABLE {db}.{schema}.Orders (
     OrderID INT NOT NULL,
@@ -76,8 +77,6 @@ CREATE TABLE {db}.{schema}.Orders (
     TerritoryID NVARCHAR(10) NOT NULL
 );
 
-DROP TABLE IF EXISTS {db}.{schema}.Products;
-
 CREATE TABLE {db}.{schema}.Products (
     ProductID INT NOT NULL,
     ProductName NVARCHAR(255) NOT NULL,
@@ -91,14 +90,10 @@ CREATE TABLE {db}.{schema}.Products (
     Discontinued BIT NOT NULL
 );
 
-DROP TABLE IF EXISTS {db}.{schema}.Region;
-
 CREATE TABLE {db}.{schema}.Region (
     RegionID INT NOT NULL,
     RegionDescription NVARCHAR(100) NOT NULL
 );
-
-DROP TABLE IF EXISTS {db}.{schema}.Shippers;
 
 CREATE TABLE {db}.{schema}.Shippers (
     ShipperID INT NOT NULL,
@@ -106,15 +101,11 @@ CREATE TABLE {db}.{schema}.Shippers (
     Phone NVARCHAR(20) NOT NULL
 );
 
-DROP TABLE IF EXISTS {db}.{schema}.Territories;
-
 CREATE TABLE {db}.{schema}.Territories (
     TerritoryID NVARCHAR(10) NOT NULL,
     TerritoryDescription NVARCHAR(255) NOT NULL,
     RegionID INT NOT NULL
 );
-
-DROP TABLE IF EXISTS {db}.{schema}.Suppliers;
 
 CREATE TABLE {db}.{schema}.Suppliers (
     SupplierID INT NOT NULL,
