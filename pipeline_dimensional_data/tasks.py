@@ -49,9 +49,8 @@ def create_tables(cursor, db, schema, execution_uuid):
 
 def insert_into_table(cursor, table_name, src_db, src_schema, dst_db, dst_schema, execution_uuid):
     # Load the SQL script to insert data into the tables
-    print(table_name, src_db, src_schema, dst_db, dst_schema)
     insert_into_table_script = load_query("pipeline_dimensional_data/queries", f"update_{table_name}.sql").format(src_db=src_db, src_schema=src_schema, dst_db=dst_db, dst_schema=dst_schema)
-    print(insert_into_table_script)
+
     # Execute the script
     cursor.execute(insert_into_table_script)
     cursor.commit()

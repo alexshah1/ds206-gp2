@@ -69,13 +69,7 @@ OUTPUT
     $ACTION AS MergeAction
 INTO @Supplier_SCD4 (SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, MergeAction);
 
-UPDATE TP4
-SET TP4.ValidTo = GETDATE()
-FROM {dst_db}.{dst_schema}.DimSuppliers_SCD4_History AS TP4
-INNER JOIN @Supplier_SCD4 AS TMP ON TP4.SupplierID_NK = TMP.SupplierID_NK
-WHERE TP4.ValidTo IS NULL;
-
-INSERT INTO {dst_db}.{dst_schema}.DimSuppliers_SCD4_History (SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, ValidTo)
-SELECT SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, GETDATE()
+INSERT INTO {dst_db}.{dst_schema}.DimSuppliers_SCD4_History (SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, ValidTo, MergeAction)
+SELECT SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, GETDATE(), MergeAction
 FROM @Supplier_SCD4
 WHERE SupplierID_NK IS NOT NULL;

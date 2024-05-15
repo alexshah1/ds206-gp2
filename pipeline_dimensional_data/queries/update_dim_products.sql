@@ -62,13 +62,7 @@ OUTPUT
     $ACTION AS MergeAction
 INTO @Product_SCD4 (ProductID_NK, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued, ValidFrom, MergeAction);
 
-UPDATE TP4
-SET TP4.ValidTo = GETDATE()
-FROM {dst_db}.{dst_schema}.DimProducts_SCD4_History TP4
-INNER JOIN @Product_SCD4 TMP ON TP4.ProductID_NK = TMP.ProductID_NK
-WHERE TP4.ValidTo IS NULL;
-
-INSERT INTO {dst_db}.{dst_schema}.DimProducts_SCD4_History (ProductID_NK, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued, ValidFrom, ValidTo)
-SELECT ProductID_NK, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued, ValidFrom, GETDATE()
+INSERT INTO {dst_db}.{dst_schema}.DimProducts_SCD4_History (ProductID_NK, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued, ValidFrom, ValidTo, MergeAction)
+SELECT ProductID_NK, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued, ValidFrom, GETDATE(), MergeAction
 FROM @Product_SCD4
 WHERE ProductID_NK IS NOT NULL;

@@ -25,6 +25,6 @@ WHEN MATCHED AND (
             ELSE DST.RegionDescription_Prev2 
         END,
         DST.RegionDescription_Prev2_ValidTo = CASE 
-            WHEN DST.RegionDescription <> SRC.RegionDescription THEN GETDATE() 
+            WHEN DST.RegionDescription <> SRC.RegionDescription THEN DST.RegionDescription_Prev1_ValidTo 
             ELSE DST.RegionDescription_Prev2_ValidTo 
         END;

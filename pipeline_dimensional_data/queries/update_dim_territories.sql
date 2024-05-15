@@ -26,7 +26,7 @@ WHEN MATCHED AND (
             ELSE DST.TerritoryDescription_Prev2 
         END,
         DST.TerritoryDescription_Prev2_ValidTo = CASE 
-            WHEN DST.TerritoryDescription <> SRC.TerritoryDescription THEN GETDATE() 
+            WHEN DST.TerritoryDescription <> SRC.TerritoryDescription THEN DST.TerritoryDescription_Prev1_ValidTo 
             ELSE DST.TerritoryDescription_Prev2_ValidTo 
         END,
         DST.RegionID_NK_FK = SRC.RegionID,
@@ -43,6 +43,6 @@ WHEN MATCHED AND (
             ELSE DST.RegionID_NK_FK_Prev2 
         END,
         DST.RegionID_NK_FK_Prev2_ValidTo = CASE 
-            WHEN DST.RegionID_NK_FK <> SRC.RegionID THEN GETDATE() 
+            WHEN DST.RegionID_NK_FK <> SRC.RegionID THEN DST.RegionID_NK_FK_Prev1_ValidTo
             ELSE DST.RegionID_NK_FK_Prev2_ValidTo 
         END;

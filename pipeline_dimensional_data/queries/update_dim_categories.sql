@@ -15,13 +15,4 @@ THEN INSERT (CategoryID_NK, CategoryName, Description)
      VALUES (SRC.CategoryID, SRC.CategoryName, SRC.Description)
 
 WHEN NOT MATCHED BY SOURCE 
-THEN DELETE 
-
-OUTPUT 
-    $action AS Action,
-    DELETED.CategoryID_NK AS DstCategoryID, 
-    DELETED.CategoryName AS DstCategoryName, 
-    DELETED.Description AS DstDescription, 
-    INSERTED.CategoryID_NK AS SrcCategoryID, 
-    INSERTED.CategoryName AS SrcCategoryName, 
-    INSERTED.Description AS SrcDescription;
+THEN DELETE;

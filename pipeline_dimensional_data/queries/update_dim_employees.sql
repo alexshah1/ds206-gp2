@@ -66,7 +66,6 @@ THEN
         DST.ReportsTo = SRC.ReportsTo,
         DST.PhotoPath = SRC.PhotoPath,
         DST.ValidFrom = GETDATE()
-
 OUTPUT 
     DELETED.EmployeeID_NK, 
     DELETED.LastName, 
@@ -89,37 +88,7 @@ OUTPUT
     $ACTION AS MergeAction
 INTO @Employees_SCD4 (EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, MergeAction);
 
-DELETE FROM {dst_db}.{dst_schema}.DimEmployees_SCD1
-OUTPUT 
-    DELETED.EmployeeID_NK, 
-    DELETED.LastName, 
-    DELETED.FirstName, 
-    DELETED.Title, 
-    DELETED.TitleOfCourtesy, 
-    DELETED.BirthDate, 
-    DELETED.HireDate, 
-    DELETED.Address, 
-    DELETED.City, 
-    DELETED.Region, 
-    DELETED.PostalCode, 
-    DELETED.Country, 
-    DELETED.HomePhone, 
-    DELETED.Extension, 
-    DELETED.Notes, 
-    DELETED.ReportsTo, 
-    DELETED.PhotoPath, 
-    DELETED.ValidFrom, 
-    'DELETE' AS MergeAction
-INTO @Employees_SCD4 (EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, MergeAction)
-WHERE EmployeeID_NK NOT IN (SELECT EmployeeID FROM {src_db}.{src_schema}.Employees);
-
-UPDATE TP4
-SET TP4.ValidTo = GETDATE()
-FROM {dst_db}.{dst_schema}.DimEmployees_SCD4_History TP4
-INNER JOIN @Employees_SCD4 TMP ON TP4.EmployeeID_NK = TMP.EmployeeID_NK
-WHERE TP4.ValidTo IS NULL;
-
-INSERT INTO {dst_db}.{dst_schema}.DimEmployees_SCD4_History (EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, ValidTo)
-SELECT EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, GETDATE()
+INSERT INTO {dst_db}.{dst_schema}.DimEmployees_SCD4_History (EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, ValidTo, MergeAction)
+SELECT EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, GETDATE(), MergeAction
 FROM @Employees_SCD4
 WHERE EmployeeID_NK IS NOT NULL;
