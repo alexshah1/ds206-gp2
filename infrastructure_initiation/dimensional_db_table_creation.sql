@@ -1,6 +1,6 @@
 USE ORDERS_DIMENSIONAL_DB;
 
-CREATE TABLE DimCategories (
+CREATE TABLE DimCategories_SCD1 (
     CategoryID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
     CategoryID_NK INT NOT NULL,
     CategoryName NVARCHAR(255) NOT NULL,
@@ -50,8 +50,6 @@ CREATE TABLE FactOrders (
     Discount DECIMAL(10, 2) NOT NULL
 );
 
-
-
 CREATE TABLE DimRegion_SCD3 (
     RegionID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
     RegionID_NK INT NOT NULL,
@@ -64,7 +62,7 @@ CREATE TABLE DimRegion_SCD3 (
 
 CREATE TABLE DimShippers_SCD1 (
     ShipperID INT,
-  CompanyName NVARCHAR(255),
+    CompanyName NVARCHAR(255),
     Phone NVARCHAR(20)
 );
 

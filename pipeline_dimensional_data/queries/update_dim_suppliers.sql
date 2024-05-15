@@ -1,7 +1,7 @@
 DECLARE @Yesterday INT = (YEAR(DATEADD(dd, - 1, GETDATE())) * 10000) + (MONTH(DATEADD(dd, - 1, GETDATE())) * 100) + DAY(DATEADD(dd, - 1, GETDATE()));
 DECLARE @Today INT = (YEAR(GETDATE()) * 10000) + (MONTH(GETDATE()) * 100) + DAY(GETDATE());
 
-DECLARE  @Supplier_SCD4 TABLE
+DECLARE @Supplier_SCD4 TABLE
 (
 	SupplierID_NK INT,
     CompanyName NVARCHAR(100),
