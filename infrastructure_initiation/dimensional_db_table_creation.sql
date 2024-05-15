@@ -62,11 +62,10 @@ CREATE TABLE DimRegion_SCD3 (
     RegionDescription_Prev2_ValidTo INT NULL
 );
 
-CREATE TABLE DimShippers (
-    ShipperID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
-    ShipperID_NK INT NOT NULL,
-    CompanyName NVARCHAR(255) NOT NULL,
-    Phone NVARCHAR(20) NOT NULL
+CREATE TABLE DimShippers_SCD1 (
+    ShipperID INT,
+  CompanyName NVARCHAR(255),
+    Phone NVARCHAR(20)
 );
 
 CREATE TABLE DimTerritories_SCD3 (
