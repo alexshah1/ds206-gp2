@@ -70,7 +70,7 @@ def create_tables(cursor, db, schema, execution_uuid):
     cursor.commit()
     
     # Log the creation of the tables
-    relational_logger.info(msg=f"The tables in the database {db} have been created.",
+    relational_logger.info(msg=f"The tables in the database {db}.{schema} have been created.",
                            extra={"execution_uuid": execution_uuid})
 
 

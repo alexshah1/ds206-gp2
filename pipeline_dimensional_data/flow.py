@@ -3,8 +3,9 @@ from utils import get_uuid
 from .config import TABLE_NAMES
 
 class DimensionalDataFlow:
-    def __init__(self, raw_source_data_path):
-        self.raw_source_data_path = raw_source_data_path
+    def __init__(self, relational_db_name, relational_db_schema):
+        self.relational_db_name = relational_db_name
+        self.relational_db_schema = relational_db_schema
         self.execution_uuid = get_uuid()
 
 
@@ -23,7 +24,7 @@ class DimensionalDataFlow:
 
     def insert_into_tables(self, cursor):
         for tablename in TABLE_NAMES:
-            tasks.insert_into_table(cursor, tablename, "Orders_RELATIONAL_DB", "dbo", "Orders_DIMENSIONAL_DB", "dbo", self.raw_source_data_path, self.execution_uuid)
+            tasks.insert_into_table(cursor, tablename, self.relational_db_name, self.relational_db_schema, "Orders_DIMENSIONAL_DB", "dbo", self.execution_uuid)
 
 
     def execute(self):

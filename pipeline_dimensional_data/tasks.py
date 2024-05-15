@@ -7,7 +7,7 @@ import traceback
 
 def connect_db_create_cursor():
     # Call to read the configuration file
-    db_conf = get_sql_config(SQL_SERVER_CONFIG_FILE, "RelationalDatabase")
+    db_conf = get_sql_config(SQL_SERVER_CONFIG_FILE, "DimensionalDatabase")
     
     # Create a connection string for SQL Server
     db_conn_str = "Driver={};Server={};Database={};Trusted_Connection={};".format(*db_conf)
@@ -23,7 +23,7 @@ def connect_db_create_cursor():
 
 def create_database(cursor, execution_uuid):
     # Load the SQL script to create a database
-    create_database_script = load_query("infrastructure_initiation", "relational_db_creation.sql")
+    create_database_script = load_query("infrastructure_initiation", "dimensional_db_creation.sql")
     
     # Execute the script
     cursor.execute(create_database_script)
@@ -43,14 +43,15 @@ def create_tables(cursor, db, schema, execution_uuid):
     cursor.commit()
     
     # Log the creation of the tables
-    dimensional_logger.info(msg=f"The tables in the database {db} have been created.",
+    dimensional_logger.info(msg=f"The tables in the database {db}.{schema} have been created.",
                            extra={"execution_uuid": execution_uuid})
 
 
 def insert_into_table(cursor, table_name, src_db, src_schema, dst_db, dst_schema, execution_uuid):
     # Load the SQL script to insert data into the tables
+    print(table_name, src_db, src_schema, dst_db, dst_schema)
     insert_into_table_script = load_query("pipeline_dimensional_data/queries", f"update_{table_name}.sql").format(src_db=src_db, src_schema=src_schema, dst_db=dst_db, dst_schema=dst_schema)
-    
+    print(insert_into_table_script)
     # Execute the script
     cursor.execute(insert_into_table_script)
     cursor.commit()

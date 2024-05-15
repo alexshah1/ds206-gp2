@@ -60,7 +60,7 @@ DROP TABLE IF EXISTS DimRegion_SCD3;
 CREATE TABLE DimRegion_SCD3 (
     RegionID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
     RegionID_NK INT NOT NULL,
-    RegionDescription NVARCHAR(100) NOT NULL
+    RegionDescription NVARCHAR(100) NOT NULL,
     RegionDescription_Prev1 NVARCHAR(100) NULL,
     RegionDescription_Prev1_ValidTo DATETIME NULL,
     RegionDescription_Prev2 NVARCHAR(100) NULL,
@@ -87,9 +87,9 @@ CREATE TABLE DimTerritories_SCD3 (
     TerritoryDescription_Prev2 NVARCHAR(100) NULL,
     TerritoryDescription_Prev2_ValidTo NVARCHAR(255) NULL,
     RegionID_NK_FK INT NOT NULL,
-    RegionID_NK_FK_Prev1 INT NOT NULL,
+    RegionID_NK_FK_Prev1 INT NULL,
     RegionID_NK_FK_Prev1_ValidTo DATETIME NULL,
-    RegionID_NK_FK_Prev2 INT NOT NULL,
+    RegionID_NK_FK_Prev2 INT NULL,
     RegionID_NK_FK_Prev2_ValidTo DATETIME NULL
 );
 
@@ -140,7 +140,7 @@ CREATE TABLE DimProducts_SCD1(
  ProductID_NK INT NOT NULL,
  ProductName NVARCHAR(255) NULL,
  SupplierID varchar(50) NULL,
- CategoryID INTNOT NULL,
+ CategoryID INT NOT NULL,
  QuantityPerUnit NVARCHAR(100) NOT NULL,
  UnitPrice DECIMAL(10,2) NOT NULL,
  UnitsInStock INT NOT NULL,
@@ -217,4 +217,4 @@ CREATE TABLE DimEmployees_SCD4_History
  PhotoPath NVARCHAR(255) NULL,
  ValidFrom DATETIME NULL,
  ValidTo DATETIME NULL
-) 
+);

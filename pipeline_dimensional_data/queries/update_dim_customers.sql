@@ -28,4 +28,4 @@ FROM(
 		   DST.ValidTo = GETDATE()
 		   OUTPUT SRC.CustomerID, SRC.CompanyName, SRC.ContactName, SRC.ContactTitle, SRC.Address, SRC.City, SRC.Region, SRC.PostalCode, SRC.Country, SRC.Phone, SRC.Fax, $Action AS MergeAction
 ) AS MRG
-WHERE MRG.MergeAction = 'UPDATE' ;
+WHERE MRG.MergeAction = 'UPDATE';
