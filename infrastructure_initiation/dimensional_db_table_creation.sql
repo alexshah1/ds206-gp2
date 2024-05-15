@@ -61,9 +61,10 @@ CREATE TABLE DimRegion_SCD3 (
 );
 
 CREATE TABLE DimShippers_SCD1 (
-    ShipperID INT,
-    CompanyName NVARCHAR(255),
-    Phone NVARCHAR(20)
+	ShipperID_SK_PK INT PRIMARY KEY IDENTITY(1,1),
+    ShipperID_NK INT NOT NULL,
+	CompanyName NVARCHAR(255) NOT NULL,
+    Phone NVARCHAR(20) NOT NULL
 );
 
 CREATE TABLE DimTerritories_SCD3 (
