@@ -1,29 +1,26 @@
-
 DECLARE  @Employees_SCD4 TABLE
 (
-    [EmployeeID_NK] [int] NULL,
-    [LastName] [nvarchar](255) NULL,
-    [FirstName] [nvarchar](255) NULL,
-    [Title] [nvarchar](255) NULL,
-    [TitleOfCourtesy] [nvarchar](50) NULL,
-    [BirthDate] [datetime] NULL,
-    [HireDate] [datetime] NULL,
-    [Address] [nvarchar](50) NULL,
-    [City] [nvarchar](255) NULL,
-    [Region] [nvarchar](255) NULL,
-    [PostalCode] [nvarchar](20) NULL,
-    [Country] [nvarchar](100) NULL,
-    [HomePhone] [nvarchar](50) NULL,
-    [Extension] [int] NULL,
-    [Notes] [nvarchar](MAX) NULL,
-    [ReportsTo] [int] NULL,
-    [PhotoPath] [nvarchar](255) NULL,
-	[ValidFrom] [datetime] NULL,
-	[MergeAction] [varchar](10) NULL
-
+    EmployeeID_NK INT NULL,
+    LastName NVARCHAR(255) NULL,
+    FirstName NVARCHAR(255) NULL,
+    Title NVARCHAR(255) NULL,
+    TitleOfCourtesy NVARCHAR(50) NULL,
+    BirthDate DATETIME NULL,
+    HireDate DATETIME NULL,
+    Address NVARCHAR(50) NULL,
+    City NVARCHAR(255) NULL,
+    Region NVARCHAR(255) NULL,
+    PostalCode NVARCHAR(20) NULL,
+    Country NVARCHAR(100) NULL,
+    HomePhone NVARCHAR(50) NULL,
+    Extension INT NULL,
+    Notes NVARCHAR(MAX) NULL,
+    ReportsTo INT NULL,
+    PhotoPath NVARCHAR(255) NULL,
+	ValidFrom DATETIME NULL,
+	MergeAction NVARCHAR(10) NULL
 ) 
 
--- Merge statement
 MERGE		dbo.DimEmployees_SCD1 AS DST
 USING		Employees AS SRC
 ON			(SRC.EmployeeID_NK = DST.EmployeeID_NK)
@@ -76,17 +73,14 @@ OUTPUT DELETED.EmployeeID_NK, DELETED.LastName, DELETED.FirstName, DELETED.Title
 INTO @Employees_SCD4 (EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, MergeAction)
 ;
 
--- Handle deletions
     DELETE FROM dbo.DimEmployees_SCD1
     OUTPUT DELETED.EmployeeID_NK, DELETED.LastName, DELETED.FirstName, DELETED.Title, DELETED.TitleOfCourtesy, DELETED.BirthDate, DELETED.HireDate, DELETED.Address, DELETED.City, DELETED.Region, DELETED.PostalCode, DELETED.Country, DELETED.HomePhone, DELETED.Extension, DELETED.Notes, DELETED.ReportsTo, DELETED.PhotoPath, DELETED.ValidFrom, 'DELETE' AS MergeAction
     INTO @Employees_SCD4 (EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, MergeAction)
     WHERE EmployeeID_NK NOT IN (SELECT EmployeeID_NK FROM Employees);
 
--- Update history table to set final date and current flag
-
 UPDATE		TP4
 
-SET			TP4.ValidTo = DATEADD(day, -1, GETDATE())
+SET			TP4.ValidTo = GETDATE()
 
 FROM		dbo.DimEmployees_SCD4_History TP4
 			INNER JOIN @Employees_SCD4 TMP
@@ -94,9 +88,7 @@ FROM		dbo.DimEmployees_SCD4_History TP4
 
 WHERE		TP4.ValidTo IS NULL
 
-
--- Add latest history records to history table
 INSERT INTO dbo.DimEmployees_SCD4_History (EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, ValidTo)
-SELECT EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, DATEADD(DAY, -1, GETDATE())
+SELECT EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, GETDATE()
 FROM @Employees_SCD4
 WHERE EmployeeID_NK IS NOT NULL;
