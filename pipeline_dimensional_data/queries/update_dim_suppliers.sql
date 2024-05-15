@@ -16,8 +16,8 @@ DECLARE @Supplier_SCD4 TABLE
 	MergeAction NVARCHAR(10) 
 ) 
 
-MERGE		DimSuppliers_SCD1					AS DST
-USING		Suppliers				AS SRC
+MERGE		DimSuppliers_SCD1 AS DST
+USING		Suppliers AS SRC
 ON			(SRC.SupplierID = DST.SupplierID_NK)
 
 WHEN NOT MATCHED THEN
