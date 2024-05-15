@@ -1,28 +1,27 @@
 DECLARE  @Product_SCD4 TABLE
 (
-	[ProductID_NK] [int] NULL,
-	[ProductName] [nvarchar](255) NULL,
-	[SupplierID] [varchar](50) NULL,
-	[CategoryID] [int] NULL,
-	[QuantityPerUnit] [nvarchar](100) NULL,
-	[UnitPrice] [decimal](10,2) NULL,
-	[UnitsInStock] [int]  NULL,
-	[UnitsOnOrder] [int] NULL,
-	[ReorderLevel] [int] NULL,
-	[Discontinued] [bit] NULL,
-	[ValidFrom] [datetime] NULL,
-	[MergeAction] [varchar](10) NULL
+	ProductID_NK INT NULL,
+	ProductName NVARCHAR(255) NULL,
+	SupplierID NVARCHAR(50) NULL,
+	CategoryID INT NULL,
+	QuantityPerUnit NVARCHAR(100) NULL,
+	UnitPrice DECIMAL(10,2) NULL,
+	UnitsInStock INT  NULL,
+	UnitsOnOrder INT NULL,
+	ReorderLevel INT NULL,
+	Discontinued BIT NULL,
+	ValidFrom DATETIME NULL,
+	MergeAction NVARCHAR(10) NULL
 ) 
 
--- Merge statement
-MERGE		dbo.DimProducts_SCD1			AS DST
-USING		dbo.Products				AS SRC
+MERGE		dbo.DimProducts_SCD1 AS DST
+USING		dbo.Products AS SRC
 ON			(SRC.ProductID_NK = DST.ProductID_NK)
 
 WHEN NOT MATCHED THEN
 
 INSERT (ProductID_NK, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder,ReorderLevel,Discontinued, ValidFrom)
-VALUES (SRC.ProductID_NK, SRC.ProductName, SRC.SupplierID, SRC.CategoryID, SRC.QuantityPerUnit, SRC.UnitPrice, SRC.UnitsInStock, SRC.UnitsOnOrder,SRC.ReorderLevel,SRC.Discontinued,GETDATE())
+VALUES (SRC.ProductID_NK, SRC.ProductName, SRC.SupplierID, SRC.CategoryID, SRC.QuantityPerUnit, SRC.UnitPrice, SRC.UnitsInStock, SRC.UnitsOnOrder, SRC.ReorderLevel, SRC.Discontinued, GETDATE())
 
 WHEN MATCHED 
 AND		
@@ -53,13 +52,10 @@ OUTPUT  DELETED.ProductID_NK, DELETED.ProductName, DELETED.SupplierID, DELETED.C
 INTO	@Product_SCD4 (ProductID_NK, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder,ReorderLevel,Discontinued, ValidFrom, MergeAction)
 ;
 
--- Update history table to set final date and current flag
-
-
 
 UPDATE		TP4
 
-SET			TP4.ValidTo = CONVERT (DATE, GETDATE())
+SET			TP4.ValidTo = GETDATE()
 
 FROM		dbo.DimProducts_SCD4_History TP4
 			INNER JOIN @Product_SCD4 TMP

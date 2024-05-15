@@ -12,9 +12,9 @@ WHEN NOT MATCHED BY TARGET THEN
 WHEN NOT MATCHED BY SOURCE
 THEN DELETE 
 WHEN MATCHED AND (  
-	Isnull(TARGET.ShipperID_NK, '') <> Isnull(SOURCE.ShipperID, '') OR
-	Isnull(TARGET.CompanyName, '') <> Isnull(SOURCE.CompanyName, '') OR
-	Isnull(TARGET.Phone, '') <> Isnull(SOURCE.Phone, '')  ) 
+	ISNULL(TARGET.ShipperID_NK, '') <> ISNULL(SOURCE.ShipperID, '') OR
+	ISNULL(TARGET.CompanyName, '') <> ISNULL(SOURCE.CompanyName, '') OR
+	ISNULL(TARGET.Phone, '') <> ISNULL(SOURCE.Phone, '')  ) 
 	THEN
 		UPDATE SET 
 			 TARGET.ShipperID_NK = SOURCE.ShipperID,
