@@ -208,7 +208,7 @@ DROP TABLE IF EXISTS {db}.{schema}.DimEmployees_SCD4_History;
 
 CREATE TABLE {db}.{schema}.DimEmployees_SCD4_History
 (
-    history_id INT IDENTITY(1, 1) NOT NULL,
+    History_id INT IDENTITY(1, 1) NOT NULL,
     EmployeeID_NK INT NULL,
     LastName NVARCHAR(255) NULL,
     FirstName NVARCHAR(255) NULL,
