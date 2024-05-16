@@ -61,3 +61,11 @@
 2024-05-16 01:15:55,669 - 87892756-244f-49e0-9dd0-a10c99923ae1 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Suppliers table from Orders_RELATIONAL_DB.dbo.
 2024-05-16 01:15:55,701 - 87892756-244f-49e0-9dd0-a10c99923ae1 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Employees table from Orders_RELATIONAL_DB.dbo.
 2024-05-16 01:15:55,725 - 87892756-244f-49e0-9dd0-a10c99923ae1 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Products table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 20:34:10,694 - 047ede48-8b68-48b6-b9a0-0f765fbbf731 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Region table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 20:34:10,744 - 047ede48-8b68-48b6-b9a0-0f765fbbf731 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Territories table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 20:34:10,773 - 047ede48-8b68-48b6-b9a0-0f765fbbf731 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Shippers table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 20:34:10,804 - 047ede48-8b68-48b6-b9a0-0f765fbbf731 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Categories table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 20:34:10,930 - 047ede48-8b68-48b6-b9a0-0f765fbbf731 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Customers table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 20:34:10,993 - 047ede48-8b68-48b6-b9a0-0f765fbbf731 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Suppliers table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 20:34:11,089 - 047ede48-8b68-48b6-b9a0-0f765fbbf731 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Employees table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 20:34:11,168 - 047ede48-8b68-48b6-b9a0-0f765fbbf731 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Products table from Orders_RELATIONAL_DB.dbo.

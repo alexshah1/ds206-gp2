@@ -37,8 +37,8 @@ CREATE TABLE {db}.{schema}.FactOrders
 (
     OrderID_SK_PK INT PRIMARY KEY IDENTITY(1, 1),
     OrderID_NK INT NOT NULL,
-    CustomerID NVARCHAR(10) NOT NULL,
-    EmployeeID INT NOT NULL,
+    CustomerID_SK_FK NVARCHAR(10) NOT NULL,
+    EmployeeID_SK_FK INT NOT NULL,
     OrderDate DATE NOT NULL,
     RequiredDate DATE NOT NULL,
     ShippedDate DATE NULL,
@@ -50,9 +50,9 @@ CREATE TABLE {db}.{schema}.FactOrders
     ShipRegion NVARCHAR(50) NULL,
     ShipPostalCode NVARCHAR(10) NULL,
     ShipCountry NVARCHAR(50) NOT NULL,
-    TerritoryID NVARCHAR(10) NOT NULL,
+    TerritoryID_SK_FK NVARCHAR(10) NOT NULL,
     -- From OrderDetails
-    ProductID INT NOT NULL,
+    ProductID_SK_FK INT NOT NULL,
     UnitPrice DECIMAL(10, 2) NOT NULL,
     Quantity INT NOT NULL,
     Discount DECIMAL(10, 2) NOT NULL
