@@ -1,8 +1,9 @@
-2024-05-16 21:54:30,806 - 7ded7f78-6835-43a3-9577-f06da896a291 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Region table from Orders_RELATIONAL_DB.dbo.
-2024-05-16 21:54:30,855 - 7ded7f78-6835-43a3-9577-f06da896a291 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Territories table from Orders_RELATIONAL_DB.dbo.
-2024-05-16 21:54:30,879 - 7ded7f78-6835-43a3-9577-f06da896a291 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Shippers table from Orders_RELATIONAL_DB.dbo.
-2024-05-16 21:54:30,920 - 7ded7f78-6835-43a3-9577-f06da896a291 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Categories table from Orders_RELATIONAL_DB.dbo.
-2024-05-16 21:54:31,035 - 7ded7f78-6835-43a3-9577-f06da896a291 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Customers table from Orders_RELATIONAL_DB.dbo.
-2024-05-16 21:54:31,125 - 7ded7f78-6835-43a3-9577-f06da896a291 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Suppliers table from Orders_RELATIONAL_DB.dbo.
-2024-05-16 21:54:31,230 - 7ded7f78-6835-43a3-9577-f06da896a291 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Employees table from Orders_RELATIONAL_DB.dbo.
-2024-05-16 21:54:31,309 - 7ded7f78-6835-43a3-9577-f06da896a291 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Products table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 22:13:01,934 - 8192ec32-4a09-4ebf-a7ca-7cc654e77c59 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Region table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 22:13:01,965 - 8192ec32-4a09-4ebf-a7ca-7cc654e77c59 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Territories table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 22:13:01,993 - 8192ec32-4a09-4ebf-a7ca-7cc654e77c59 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Shippers table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 22:13:02,015 - 8192ec32-4a09-4ebf-a7ca-7cc654e77c59 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Categories table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 22:13:02,114 - 8192ec32-4a09-4ebf-a7ca-7cc654e77c59 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Customers table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 22:13:02,189 - 8192ec32-4a09-4ebf-a7ca-7cc654e77c59 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Suppliers table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 22:13:02,254 - 8192ec32-4a09-4ebf-a7ca-7cc654e77c59 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Employees table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 22:13:02,319 - 8192ec32-4a09-4ebf-a7ca-7cc654e77c59 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Products table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 22:13:02,433 - 8192ec32-4a09-4ebf-a7ca-7cc654e77c59 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.fact_Orders table from Orders_RELATIONAL_DB.dbo.

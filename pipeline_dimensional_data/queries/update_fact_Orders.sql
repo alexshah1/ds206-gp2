@@ -1,7 +1,7 @@
 MERGE INTO {dst_db}.{dst_schema}.FactOrders AS DST
 USING (
     SELECT     
-        o.OrderID_NK,
+        o.OrderID,
         o.CustomerID,
         o.EmployeeID,
         o.OrderDate,
@@ -20,16 +20,15 @@ USING (
         od.UnitPrice,
         od.Quantity,
         od.Discount
-    FROM {src_db}.{src_schema}.Orders o 
-    JOIN {src_db}.{src_schema}.OrderDetails od
-    ON o.OrderID = od.OrderID 
+    FROM [ORDERS_RELATIONAL_DB].[dbo].[Orders] o 
+    JOIN [ORDERS_RELATIONAL_DB].[dbo].[OrderDetails] od ON o.OrderID = od.OrderID 
 ) AS SRC
-ON DST.OrderID_NK = SRC.OrderID_NK AND DST.ProductID = SRC.ProductID
+ON DST.OrderID_NK = SRC.OrderID AND DST.ProductID_SK_FK = SRC.ProductID
 WHEN NOT MATCHED BY TARGET THEN
     INSERT (
         OrderID_NK,
-        CustomerID,
-        EmployeeID,
+        CustomerID_SK_FK,
+        EmployeeID_SK_FK,
         OrderDate,
         RequiredDate,
         ShippedDate,
@@ -41,13 +40,13 @@ WHEN NOT MATCHED BY TARGET THEN
         ShipRegion,
         ShipPostalCode,
         ShipCountry,
-        TerritoryID,
-        ProductID,
+        TerritoryID_SK_FK,
+        ProductID_SK_FK,
         UnitPrice,
         Quantity,
         Discount
     ) VALUES (
-        SRC.OrderID_NK,
+        SRC.OrderID,
         SRC.CustomerID,
         SRC.EmployeeID,
         SRC.OrderDate,
@@ -69,8 +68,8 @@ WHEN NOT MATCHED BY TARGET THEN
     )
 WHEN MATCHED THEN
     UPDATE SET
-        DST.CustomerID = SRC.CustomerID,
-        DST.EmployeeID = SRC.EmployeeID,
+        DST.CustomerID_SK_FK = SRC.CustomerID,
+        DST.EmployeeID_SK_FK = SRC.EmployeeID,
         DST.OrderDate = SRC.OrderDate,
         DST.RequiredDate = SRC.RequiredDate,
         DST.ShippedDate = SRC.ShippedDate,
@@ -82,7 +81,7 @@ WHEN MATCHED THEN
         DST.ShipRegion = SRC.ShipRegion,
         DST.ShipPostalCode = SRC.ShipPostalCode,
         DST.ShipCountry = SRC.ShipCountry,
-        DST.TerritoryID = SRC.TerritoryID,
+        DST.TerritoryID_SK_FK = SRC.TerritoryID,
         DST.UnitPrice = SRC.UnitPrice,
         DST.Quantity = SRC.Quantity,
         DST.Discount = SRC.Discount;
