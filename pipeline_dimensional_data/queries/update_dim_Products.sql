@@ -1,3 +1,6 @@
+DECLARE @Today DATE = CONVERT(DATE, GETDATE());
+DECLARE @Yesterday DATE = CONVERT(DATE, DATEADD(DAY, -1, @Today));
+
 DECLARE @Product_SCD4 TABLE
 (
     ProductID_NK INT,
@@ -10,7 +13,7 @@ DECLARE @Product_SCD4 TABLE
     UnitsOnOrder INT,
     ReorderLevel INT,
     Discontinued BIT,
-    ValidFrom DATETIME,
+    ValidFrom DATE,
     MergeAction NVARCHAR(10)
 ) 
 
@@ -20,7 +23,7 @@ ON (SRC.ProductID = DST.ProductID_NK)
 
 WHEN NOT MATCHED THEN
     INSERT (ProductID_NK, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued, ValidFrom)
-    VALUES (SRC.ProductID, SRC.ProductName, SRC.SupplierID, SRC.CategoryID, SRC.QuantityPerUnit, SRC.UnitPrice, SRC.UnitsInStock, SRC.UnitsOnOrder, SRC.ReorderLevel, SRC.Discontinued, GETDATE())
+    VALUES (SRC.ProductID, SRC.ProductName, SRC.SupplierID, SRC.CategoryID, SRC.QuantityPerUnit, SRC.UnitPrice, SRC.UnitsInStock, SRC.UnitsOnOrder, SRC.ReorderLevel, SRC.Discontinued, @Today)
 
 WHEN MATCHED AND (
         ISNULL(DST.ProductID_NK,'') <> ISNULL(SRC.ProductID,'') OR
@@ -45,7 +48,7 @@ THEN
         DST.UnitsOnOrder = SRC.UnitsOnOrder,
         DST.ReorderLevel = SRC.ReorderLevel,
         DST.Discontinued = SRC.Discontinued,
-        DST.ValidFrom = GETDATE()
+        DST.ValidFrom = @Yesterday
 
 OUTPUT 
     DELETED.ProductID_NK, 
@@ -63,6 +66,6 @@ OUTPUT
 INTO @Product_SCD4 (ProductID_NK, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued, ValidFrom, MergeAction);
 
 INSERT INTO {dst_db}.{dst_schema}.DimProducts_SCD4_History (ProductID_NK, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued, ValidFrom, ValidTo, MergeAction)
-SELECT ProductID_NK, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued, ValidFrom, GETDATE(), MergeAction
+SELECT ProductID_NK, ProductName, SupplierID, CategoryID, QuantityPerUnit, UnitPrice, UnitsInStock, UnitsOnOrder, ReorderLevel, Discontinued, ValidFrom, @Today, MergeAction
 FROM @Product_SCD4
 WHERE ProductID_NK IS NOT NULL;

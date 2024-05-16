@@ -1,3 +1,6 @@
+DECLARE @Today DATE = CONVERT(DATE, GETDATE());
+DECLARE @Yesterday DATE = CONVERT(DATE, DATEADD(DAY, -1, @Today));
+
 DECLARE @Employees_SCD4 TABLE
 (
     EmployeeID_NK INT,
@@ -5,8 +8,8 @@ DECLARE @Employees_SCD4 TABLE
     FirstName NVARCHAR(255),
     Title NVARCHAR(255),
     TitleOfCourtesy NVARCHAR(50),
-    BirthDate DATETIME,
-    HireDate DATETIME,
+    BirthDate DATE,
+    HireDate DATE,
     Address NVARCHAR(50),
     City NVARCHAR(255),
     Region NVARCHAR(255),
@@ -17,7 +20,7 @@ DECLARE @Employees_SCD4 TABLE
     Notes NVARCHAR(MAX),
     ReportsTo INT,
     PhotoPath NVARCHAR(255),
-    ValidFrom DATETIME,
+    ValidFrom DATE DEFAULT  current_timestamp,
     MergeAction NVARCHAR(10)
 ) 
 
@@ -27,7 +30,7 @@ ON (SRC.EmployeeID = DST.EmployeeID_NK)
 
 WHEN NOT MATCHED THEN
     INSERT (EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom)
-    VALUES (SRC.EmployeeID, SRC.LastName, SRC.FirstName, SRC.Title, SRC.TitleOfCourtesy, SRC.BirthDate, SRC.HireDate, SRC.Address, SRC.City, SRC.Region, SRC.PostalCode, SRC.Country, SRC.HomePhone, SRC.Extension, SRC.Notes, SRC.ReportsTo, SRC.PhotoPath, GETDATE())
+    VALUES (SRC.EmployeeID, SRC.LastName, SRC.FirstName, SRC.Title, SRC.TitleOfCourtesy, SRC.BirthDate, SRC.HireDate, SRC.Address, SRC.City, SRC.Region, SRC.PostalCode, SRC.Country, SRC.HomePhone, SRC.Extension, SRC.Notes, SRC.ReportsTo, SRC.PhotoPath, @Today)
 
 WHEN MATCHED AND (
         ISNULL(DST.LastName, '') <> ISNULL(SRC.LastName, '') OR
@@ -89,6 +92,6 @@ OUTPUT
 INTO @Employees_SCD4 (EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, MergeAction);
 
 INSERT INTO {dst_db}.{dst_schema}.DimEmployees_SCD4_History (EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, ValidTo, MergeAction)
-SELECT EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, GETDATE(), MergeAction
+SELECT EmployeeID_NK, LastName, FirstName, Title, TitleOfCourtesy, BirthDate, HireDate, Address, City, Region, PostalCode, Country, HomePhone, Extension, Notes, ReportsTo, PhotoPath, ValidFrom, @Yesterday, MergeAction
 FROM @Employees_SCD4
 WHERE EmployeeID_NK IS NOT NULL;

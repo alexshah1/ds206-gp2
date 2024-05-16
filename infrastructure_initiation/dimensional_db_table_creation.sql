@@ -26,8 +26,8 @@ CREATE TABLE {db}.{schema}.DimCustomers_SCD2
     Country NVARCHAR(100) NOT NULL,
     Phone NVARCHAR(50) NOT NULL,
     Fax NVARCHAR(50) NULL,
-    ValidFrom DATETIME NULL,
-    ValidTo DATETIME NULL,
+    ValidFrom DATE NULL,
+    ValidTo DATE NULL,
     IsCurrent BIT NULL
 );
 
@@ -66,9 +66,9 @@ CREATE TABLE {db}.{schema}.DimRegion_SCD3
     RegionID_NK INT NOT NULL,
     RegionDescription NVARCHAR(100) NOT NULL,
     RegionDescription_Prev1 NVARCHAR(100) NULL,
-    RegionDescription_Prev1_ValidTo DATETIME NULL,
+    RegionDescription_Prev1_ValidTo DATE NULL,
     RegionDescription_Prev2 NVARCHAR(100) NULL,
-    RegionDescription_Prev2_ValidTo DATETIME NULL
+    RegionDescription_Prev2_ValidTo DATE NULL
 );
 
 DROP TABLE IF EXISTS {db}.{schema}.DimShippers_SCD1;
@@ -89,14 +89,14 @@ CREATE TABLE {db}.{schema}.DimTerritories_SCD3
     TerritoryID_NK NVARCHAR(10) NOT NULL,
     TerritoryDescription NVARCHAR(255) NOT NULL,
     TerritoryDescription_Prev1 NVARCHAR(255) NULL,
-    TerritoryDescription_Prev1_ValidTo DATETIME NULL,
+    TerritoryDescription_Prev1_ValidTo DATE NULL,
     TerritoryDescription_Prev2 NVARCHAR(100) NULL,
-    TerritoryDescription_Prev2_ValidTo NVARCHAR(255) NULL,
+    TerritoryDescription_Prev2_ValidTo DATE NULL,
     RegionID_NK_FK INT NOT NULL,
     RegionID_NK_FK_Prev1 INT NULL,
-    RegionID_NK_FK_Prev1_ValidTo DATETIME NULL,
+    RegionID_NK_FK_Prev1_ValidTo DATE NULL,
     RegionID_NK_FK_Prev2 INT NULL,
-    RegionID_NK_FK_Prev2_ValidTo DATETIME NULL
+    RegionID_NK_FK_Prev2_ValidTo DATE NULL
 );
 
 DROP TABLE IF EXISTS {db}.{schema}.DimSuppliers_SCD1;
@@ -116,7 +116,7 @@ CREATE TABLE {db}.{schema}.DimSuppliers_SCD1
     Phone NVARCHAR(20) NOT NULL,
     Fax NVARCHAR(20) NULL,
     HomePage NVARCHAR(255) NULL,
-    ValidFrom DATETIME NULL
+    ValidFrom DATE NULL
 );
 
 DROP TABLE IF EXISTS {db}.{schema}.DimSuppliers_SCD4_History;
@@ -136,8 +136,8 @@ CREATE TABLE {db}.{schema}.DimSuppliers_SCD4_History
     Phone NVARCHAR(20) NOT NULL,
     Fax NVARCHAR(20) NULL,
     HomePage NVARCHAR(255) NULL,
-    ValidFrom DATETIME NULL,
-    ValidTo DATETIME NULL,
+    ValidFrom DATE NULL,
+    ValidTo DATE NULL,
     MergeAction VARCHAR(10) NOT NULL
 );
 
@@ -156,7 +156,7 @@ CREATE TABLE {db}.{schema}.DimProducts_SCD1
     UnitsOnOrder INT NOT NULL,
     ReorderLevel INT NOT NULL,
     Discontinued BIT NOT NULL,
-    ValidFrom DATETIME NULL
+    ValidFrom DATE NULL
 );
 
 DROP TABLE IF EXISTS {db}.{schema}.DimProducts_SCD4_History;
@@ -174,8 +174,8 @@ CREATE TABLE {db}.{schema}.DimProducts_SCD4_History
     UnitsOnOrder INT NOT NULL,
     ReorderLevel INT NOT NULL,
     Discontinued BIT NOT NULL,
-    ValidFrom DATETIME NULL,
-    ValidTo DATETIME NULL,
+    ValidFrom DATE NULL,
+    ValidTo DATE NULL,
     MergeAction VARCHAR(10) NOT NULL
 );
 
@@ -189,8 +189,8 @@ CREATE TABLE {db}.{schema}.DimEmployees_SCD1
     FirstName NVARCHAR(255) NULL,
     Title NVARCHAR(255) NULL,
     TitleOfCourtesy NVARCHAR(50) NULL,
-    BirthDate DATETIME NULL,
-    HireDate DATETIME NULL,
+    BirthDate DATE NULL,
+    HireDate DATE NULL,
     Address NVARCHAR(50) NULL,
     City NVARCHAR(255) NULL,
     Region NVARCHAR(255) NULL,
@@ -201,7 +201,7 @@ CREATE TABLE {db}.{schema}.DimEmployees_SCD1
     Notes NVARCHAR(MAX) NULL,
     ReportsTo INT NULL,
     PhotoPath NVARCHAR(255) NULL,
-    ValidFrom DATETIME NULL
+    ValidFrom DATE NULL
 );
 
 DROP TABLE IF EXISTS {db}.{schema}.DimEmployees_SCD4_History;
@@ -214,8 +214,8 @@ CREATE TABLE {db}.{schema}.DimEmployees_SCD4_History
     FirstName NVARCHAR(255) NULL,
     Title NVARCHAR(255) NULL,
     TitleOfCourtesy NVARCHAR(50) NULL,
-    BirthDate DATETIME NULL,
-    HireDate DATETIME NULL,
+    BirthDate DATE NULL,
+    HireDate DATE NULL,
     Address NVARCHAR(50) NULL,
     City NVARCHAR(255) NULL,
     Region NVARCHAR(255) NULL,
@@ -226,7 +226,7 @@ CREATE TABLE {db}.{schema}.DimEmployees_SCD4_History
     Notes NVARCHAR(MAX) NULL,
     ReportsTo INT NULL,
     PhotoPath NVARCHAR(255) NULL,
-    ValidFrom DATETIME NULL,
-    ValidTo DATETIME NULL,
+    ValidFrom DATE NULL,
+    ValidTo DATE NULL,
     MergeAction VARCHAR(10) NOT NULL
 );

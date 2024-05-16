@@ -1,3 +1,5 @@
+DECLARE @Yesterday DATE = CONVERT(DATE, DATEADD(DAY, -1, GETDATE()));
+
 MERGE INTO {dst_db}.{dst_schema}.DimRegion_SCD3 AS DST
 USING (
     SELECT RegionID, RegionDescription
@@ -17,7 +19,7 @@ WHEN MATCHED AND (
             ELSE DST.RegionDescription_Prev1 
         END,
         DST.RegionDescription_Prev1_ValidTo = CASE 
-            WHEN DST.RegionDescription <> SRC.RegionDescription THEN GETDATE() 
+            WHEN DST.RegionDescription <> SRC.RegionDescription THEN @Yesterday 
             ELSE DST.RegionDescription_Prev1_ValidTo 
         END,
         DST.RegionDescription_Prev2 = CASE 

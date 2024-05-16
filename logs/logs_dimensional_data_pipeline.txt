@@ -7,3 +7,12 @@
 2024-05-16 22:13:02,254 - 8192ec32-4a09-4ebf-a7ca-7cc654e77c59 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Employees table from Orders_RELATIONAL_DB.dbo.
 2024-05-16 22:13:02,319 - 8192ec32-4a09-4ebf-a7ca-7cc654e77c59 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Products table from Orders_RELATIONAL_DB.dbo.
 2024-05-16 22:13:02,433 - 8192ec32-4a09-4ebf-a7ca-7cc654e77c59 - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.fact_Orders table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 23:51:05,583 - 13b7f775-6784-4eec-bc10-ebc4dc744c5e - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Region table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 23:51:05,609 - 13b7f775-6784-4eec-bc10-ebc4dc744c5e - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Territories table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 23:51:05,638 - 13b7f775-6784-4eec-bc10-ebc4dc744c5e - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Shippers table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 23:51:05,670 - 13b7f775-6784-4eec-bc10-ebc4dc744c5e - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Categories table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 23:51:05,789 - 13b7f775-6784-4eec-bc10-ebc4dc744c5e - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Customers table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 23:51:05,844 - 13b7f775-6784-4eec-bc10-ebc4dc744c5e - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Suppliers table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 23:51:05,922 - 13b7f775-6784-4eec-bc10-ebc4dc744c5e - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Employees table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 23:51:05,969 - 13b7f775-6784-4eec-bc10-ebc4dc744c5e - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.dim_Products table from Orders_RELATIONAL_DB.dbo.
+2024-05-16 23:51:06,079 - 13b7f775-6784-4eec-bc10-ebc4dc744c5e - INFO - Data has been inserted into/updated the Orders_DIMENSIONAL_DB.dbo.fact_Orders table from Orders_RELATIONAL_DB.dbo.

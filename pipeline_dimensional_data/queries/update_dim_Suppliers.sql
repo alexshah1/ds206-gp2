@@ -1,3 +1,6 @@
+DECLARE @Today DATE = CONVERT(DATE, GETDATE());
+DECLARE @Yesterday DATE = CONVERT(DATE, DATEADD(DAY, -1, @Today));
+
 DECLARE @Supplier_SCD4 TABLE
 (
 	SupplierID_NK INT,
@@ -12,7 +15,7 @@ DECLARE @Supplier_SCD4 TABLE
     Phone NVARCHAR(20),
     Fax NVARCHAR(20),
     HomePage NVARCHAR(255),
-	ValidFrom DATETIME,
+	ValidFrom DATE,
 	MergeAction NVARCHAR(10) 
 ) 
 
@@ -22,7 +25,7 @@ ON (SRC.SupplierID = DST.SupplierID_NK)
 
 WHEN NOT MATCHED THEN
     INSERT (SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom)
-    VALUES (SRC.SupplierID, SRC.CompanyName, SRC.ContactName, SRC.ContactTitle, SRC.Address, SRC.City, SRC.Region, SRC.PostalCode, SRC.Country, SRC.Phone, SRC.Fax, SRC.HomePage, GETDATE())
+    VALUES (SRC.SupplierID, SRC.CompanyName, SRC.ContactName, SRC.ContactTitle, SRC.Address, SRC.City, SRC.Region, SRC.PostalCode, SRC.Country, SRC.Phone, SRC.Fax, SRC.HomePage, @Today)
 
 WHEN MATCHED AND (
         ISNULL(DST.CompanyName, '') <> ISNULL(SRC.CompanyName, '') OR
@@ -50,7 +53,7 @@ THEN
         DST.Phone = SRC.Phone,
         DST.Fax = SRC.Fax,
         DST.HomePage = SRC.HomePage,
-        DST.ValidFrom = GETDATE()
+        DST.ValidFrom = @Today
 
 OUTPUT 
     DELETED.SupplierID_NK, 
@@ -70,6 +73,6 @@ OUTPUT
 INTO @Supplier_SCD4 (SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, MergeAction);
 
 INSERT INTO {dst_db}.{dst_schema}.DimSuppliers_SCD4_History (SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, ValidTo, MergeAction)
-SELECT SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, GETDATE(), MergeAction
+SELECT SupplierID_NK, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax, HomePage, ValidFrom, @Yesterday, MergeAction
 FROM @Supplier_SCD4
 WHERE SupplierID_NK IS NOT NULL;
